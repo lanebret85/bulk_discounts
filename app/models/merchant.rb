@@ -1,4 +1,4 @@
 class Merchant < ApplicationRecord
   has_many :items
-  # has_many :transactions, through: :invoices
+  has_many :invoices, through: :items
 end
