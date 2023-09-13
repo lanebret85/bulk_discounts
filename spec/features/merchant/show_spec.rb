@@ -21,5 +21,15 @@ RSpec.describe "Merchants dashboard", type: :feature do
             click_link("My Items")
             expect(current_path).to eq("/merchants/#{merchant1.id}/items")
         end
+
+        it "has a items invoices link" do
+            merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
+
+            visit "/merchants/#{merchant1.id}/dashboard"
+
+            expect(page).to have_link('My Invoices')
+            click_link("My Invoices")
+            expect(current_path).to eq("/merchants/#{merchant1.id}/invoices")
+        end
     end
 end
