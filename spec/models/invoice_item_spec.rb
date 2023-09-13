@@ -5,4 +5,8 @@ RSpec.describe InvoiceItem, type: :model do
     it { should belong_to :invoice }
     it { should belong_to :item }
   end
+
+  describe "enum" do
+    it { should define_enum_for(:status).with_values(["packaged", "pending", "shipped"]) }
+  end
 end
