@@ -101,9 +101,9 @@ RSpec.describe "Merchants dashboard", type: :feature do
 
         it "shows the date the invoice was created" do
             within("div.items-to-ship") do
-                expect(page).to have_content(@invoice1.created_at)
-                expect(page).to have_content(@invoice2.created_at)
-                expect(page).to have_content(@invoice3.created_at)
+                expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %-d, %Y"))
+                expect(page).to have_content(@invoice2.created_at.strftime("%A, %B %-d, %Y"))
+                expect(page).to have_content(@invoice3.created_at.strftime("%A, %B %-d, %Y"))
                 # make sure to add a test for oldest to newest order
             end
         end
