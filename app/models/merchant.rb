@@ -10,4 +10,11 @@ class Merchant < ApplicationRecord
     Customer.select('customers.*, COUNT(transactions.id) as success_transactions').joins(invoices: :transactions).where(transactions: { result: "success" }).group('customers.id').order('success_transactions DESC').limit(5)
   end
       
+  def item_to_be_shipped
+    Item.select("items.*, invoice_items.invoice_id, invoices.created_at").joins(invoice_items: :invoice).where.not(invoice_items: {status: 2 }).order("invoices.created_at ASC")
+  end
+
+  # def modify_date_display(date)
+  #   date.strftime("%A, %B %-d, %Y")
+  # end
 end
