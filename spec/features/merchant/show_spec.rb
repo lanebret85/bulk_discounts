@@ -17,7 +17,7 @@ RSpec.describe "Merchants dashboard", type: :feature do
         @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id)
         
         @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
-        @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id)
+        @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id, created_at: 6.days.ago)
         @invoice3 = Invoice.create!(status: 1, customer_id: @customer3.id)
         @invoice4 = Invoice.create!(status: 1, customer_id: @customer4.id)
         @invoice5 = Invoice.create!(status: 1, customer_id: @customer5.id)
@@ -104,7 +104,8 @@ RSpec.describe "Merchants dashboard", type: :feature do
                 expect(page).to have_content(@invoice1.created_at.strftime("%A, %B %-d, %Y"))
                 expect(page).to have_content(@invoice2.created_at.strftime("%A, %B %-d, %Y"))
                 expect(page).to have_content(@invoice3.created_at.strftime("%A, %B %-d, %Y"))
-                # make sure to add a test for oldest to newest order
+
+                expect(@invoice2.created_at.strftime("%A, %B %-d, %Y")).to appear_before(@invoice1.created_at.strftime("%A, %B %-d, %Y"))
             end
         end
     end
