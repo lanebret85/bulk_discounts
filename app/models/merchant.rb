@@ -11,6 +11,6 @@ class Merchant < ApplicationRecord
   end
       
   def item_to_be_shipped
-    Item.select("items.*, invoice_items.invoice_id").joins(:invoice_items).where.not(invoice_items: {status: 2 })
+    Item.select("items.*, invoice_items.invoice_id, invoices.created_at").joins(invoice_items: :invoice).where.not(invoice_items: {status: 2 })
   end
 end

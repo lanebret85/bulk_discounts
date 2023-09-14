@@ -96,10 +96,15 @@ RSpec.describe "Merchants dashboard", type: :feature do
                 expect(page).to have_link(@invoice1.id)
                 click_link(@invoice1.id)
                 expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
-                # expect(page).to have_link(@invoice2.id)
-                # expect(page).to have_link(@invoice3.id)
-                # expect(page).to have_link(@invoice4.id)
-                # expect(page).to have_link(@invoice5.id)
+            end
+        end
+
+        it "shows the date the invoice was created" do
+            within("div.items-to-ship") do
+                expect(page).to have_content(@invoice1.created_at)
+                expect(page).to have_content(@invoice2.created_at)
+                expect(page).to have_content(@invoice3.created_at)
+                # make sure to add a test for oldest to newest order
             end
         end
     end
