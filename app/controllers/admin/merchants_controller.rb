@@ -16,14 +16,18 @@ class Admin::MerchantsController < ApplicationController
     merchant.update(
       merchant_params
     )
-
-    redirect_to "/admin/merchants/#{merchant.id}"
-    flash[:notice] = "Merchant information has been successfully updated!"
+    # binding.pry
+    if params[:status].nil?
+      redirect_to "/admin/merchants/#{merchant.id}"
+      flash[:notice] = "Merchant information has been successfully updated!"
+    else
+      redirect_to admin_merchants_path
+    end
   end
 
   private
 
   def merchant_params
-    params.permit(:name)
+    params.permit(:name, :status)
   end
 end

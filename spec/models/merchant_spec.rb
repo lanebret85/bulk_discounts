@@ -8,6 +8,10 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:transactions).through :invoices }
   end
 
+  describe "enum" do
+    it { should define_enum_for(:status).with_values(["enabled", "disabled"])}
+  end
+
   describe "top_5_customers" do
     it "displays the top 5 customers" do
       merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
