@@ -18,6 +18,7 @@ RSpec.describe "Admin Merchant Update", type: :feature do
         expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
 
         expect(page).to have_content("A different name")
+        expect(page).to have_content("Merchant information has been successfully updated!")
       end
     end
   end
