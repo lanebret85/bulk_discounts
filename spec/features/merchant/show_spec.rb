@@ -36,28 +36,24 @@ RSpec.describe "Merchants dashboard", type: :feature do
         @transaction4 = Transaction.create!(invoice_id: @invoice4.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
         @transaction5 = Transaction.create!(invoice_id: @invoice5.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
         @transaction6 = Transaction.create!(invoice_id: @invoice6.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+
+        visit "/merchants/#{@merchant1.id}/dashboard"
     end
 
     describe "as a merchant" do
         it "Shows name of the merchant on dashboard" do
-            visit "/merchants/#{@merchant1.id}/dashboard"
-
             expect(page).to have_content(@merchant1.name)
         end
     end
 
     describe "Shows merchant links" do 
         it "has a items index link" do
-            visit "/merchants/#{@merchant1.id}/dashboard"
-
             expect(page).to have_link('My Items')
             click_link("My Items")
             expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
         end
 
         it "has a items invoices link" do
-            visit "/merchants/#{@merchant1.id}/dashboard"
-
             expect(page).to have_link('My Invoices')
             click_link("My Invoices")
             expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
@@ -66,8 +62,6 @@ RSpec.describe "Merchants dashboard", type: :feature do
 
     describe "Merchant Dashboard Stats" do
         it "shows names of the top five customers" do
-            visit "/merchants/#{@merchant1.id}/dashboard"
-
             expect(page).to_not have_content("Cindy Loo")
             expect(page).to have_content("Steve Boo Successful Transactions: 1")
             expect(page).to have_content("Joshil Moo Successful Transactions: 1")
@@ -79,12 +73,32 @@ RSpec.describe "Merchants dashboard", type: :feature do
 
     describe "Item's ready to ship section" do
         it "will have a section for items ready to be shipped" do
-            visit "/merchants/#{@merchant1.id}/dashboard"
-
             within("div.items-to-ship") do
                 expect(page).to have_content(@item1.name)
                 expect(page).to have_content(@item2.name)
                 expect(page).to_not have_content(@item3.name)
+            end
+        end
+
+        it "will have the id of each next to the item name" do
+            within("div.items-to-ship") do
+                expect(page).to have_content(@invoice1.id)
+                expect(page).to have_content(@invoice2.id)
+                expect(page).to have_content(@invoice3.id)
+                expect(page).to have_content(@invoice4.id)
+                expect(page).to have_content(@invoice5.id)
+                expect(page).to_not have_content(@invoice6.id)
+            end
+        end
+
+        xit "the id of each item links to the merchant invoice show page" do
+            within("div.items-to-ship") do
+                expect(page).to have_link(@invoice1.id)
+                expect(current_path).to eq("/merchant/#{@merchant1.id}/invoice/#{@invoice1.id}")
+                # expect(page).to have_link(@invoice2.id)
+                # expect(page).to have_link(@invoice3.id)
+                # expect(page).to have_link(@invoice4.id)
+                # expect(page).to have_link(@invoice5.id)
             end
         end
     end
