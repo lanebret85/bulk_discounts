@@ -14,6 +14,6 @@
 <div class="items-to-ship">
   <h4>Items Ready to Ship</h4>
   <% @merchant.item_to_be_shipped.each do |joined_item| %>
-    <p><%= joined_item.name %> Invoice ID: <%= link_to "#{joined_item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{joined_item.invoice_id}" %> <%= joined_item.created_at %></p>
+    <p><%= joined_item.name %> | Invoice ID: <%= link_to "#{joined_item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{joined_item.invoice_id}" %> | Invoice Creation Date: <%= joined_item.created_at.strftime("%A, %B %-d, %Y") %></p>
   <% end %>
 </div></br>
