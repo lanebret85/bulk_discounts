@@ -15,5 +15,15 @@ RSpec.describe "Admin Merchants Show", type: :feature do
 
       expect(page).to have_content("#{@merchant_1.name}")
     end
-  end 
+  end
+
+  describe "When I visit /admin/merchants/:merchant_id" do
+    it "I see a link to update the merchant's information that takes me to the merchant edit page when I click on it" do
+      @merchant_1 = create(:merchant)
+
+      visit "/admin/merchants/#{@merchant_1.id}"
+
+      expect(page).to have_link "Update", href: "/admin/merchants/#{@merchant_1.id}/edit"
+    end
+  end
 end
