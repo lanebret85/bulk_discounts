@@ -7,6 +7,14 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
   end
 
+  def new
+  end
+
+  def create
+    Merchant.create!(name: params[:name])
+    redirect_to "/admin/merchants"
+  end
+
   def edit
     @merchant = Merchant.find(params[:merchant_id])
   end
