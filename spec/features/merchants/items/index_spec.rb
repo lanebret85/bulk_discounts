@@ -56,6 +56,8 @@ RSpec.describe "Merchant Items Index" do
         expect(page).to have_link("#{@item1.name}")
         expect(page).to have_link("#{@item2.name}")
       end
+      click_link("#{@item1.name}")
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
     end
   end
 end
