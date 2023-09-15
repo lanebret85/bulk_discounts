@@ -73,7 +73,6 @@ namespace :csv_load do
       Merchant.create!(
         id: merchant[:id],
         name: merchant[:name],
-        status: 0,
         created_at: merchant[:created_at],
         updated_at: merchant[:updated_at]
       )
