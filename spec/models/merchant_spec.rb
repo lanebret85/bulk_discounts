@@ -12,6 +12,11 @@ RSpec.describe Merchant, type: :model do
     it { should define_enum_for(:status).with_values(["enabled", "disabled"])}
   end
 
+  describe "validations" do
+    it { should validate_presence_of :name }
+    # it { should validate_presence_of :status }
+  end
+
   describe "top_5_customers" do
     it "displays the top 5 customers" do
       merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
@@ -23,8 +28,8 @@ RSpec.describe Merchant, type: :model do
       customer5 = Customer.create(first_name: "Sarah", last_name: "Who")
       customer6 = Customer.create(first_name: "Chandni", last_name: "Sue")
       
-      item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: merchant1.id)
-      item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: merchant1.id)
+      item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: merchant1.id, description: "Food")
+      item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: merchant1.id, description: "Drink")
       
       invoice1 = Invoice.create!(status: 0, customer_id: customer1.id)
       invoice2 = Invoice.create!(status: 1, customer_id: customer2.id)
