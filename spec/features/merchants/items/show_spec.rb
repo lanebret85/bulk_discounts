@@ -20,6 +20,8 @@ RSpec.describe "Item Show Page" do
       within("div.item-details") do
         expect(page).to have_link("Update Details")
       end
+      click_link("Update Details")
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}/edit")
     end
   end
 end
