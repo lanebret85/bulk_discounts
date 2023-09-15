@@ -53,4 +53,40 @@ RSpec.describe Merchant, type: :model do
       expect(top_5).to_not include(customer1)
     end
   end
+
+  describe ".top_merchants" do
+    it "should return the top 5 merchants based on revenue" do
+      customer_1 = create(:customer)
+
+      invoice_1 = create(:invoice, customer: customer_1)
+      invoice_2 = create(:invoice, customer: customer_1)
+
+      transaction_1 = create(:transaction, invoice: invoice_1, result: 0)
+      transaction_2 = create(:transaction, invoice: invoice_2, result: 1)
+      
+      merchant_1 = create(:merchant)
+      merchant_2 = create(:merchant)
+      merchant_3 = create(:merchant)
+      merchant_4 = create(:merchant)
+      merchant_5 = create(:merchant)
+      merchant_6 = create(:merchant)
+
+      item_for_merchant_1 = create(:item, merchant: merchant_1)
+      item_for_merchant_2 = create(:item, merchant: merchant_2)
+      item_for_merchant_3 = create(:item, merchant: merchant_3)
+      item_for_merchant_4 = create(:item, merchant: merchant_4)
+      item_for_merchant_5 = create(:item, merchant: merchant_5)
+      item_for_merchant_6 = create(:item, merchant: merchant_6)
+
+      invoice_item_1 = create(:invoice_item, quantity: 3, unit_price: 57295, item: item_for_merchant_1, invoice: invoice_1)
+      invoice_item_2 = create(:invoice_item, quantity: 5, unit_price: 10385, item: item_for_merchant_1, invoice: invoice_2)
+      invoice_item_3 = create(:invoice_item, quantity: 8, unit_price: 65020, item: item_for_merchant_2, invoice: invoice_1)
+      invoice_item_4 = create(:invoice_item, quantity: 1, unit_price: 73920, item: item_for_merchant_3, invoice: invoice_1)
+      invoice_item_5 = create(:invoice_item, quantity: 2, unit_price: 32563, item: item_for_merchant_4, invoice: invoice_1)
+      invoice_item_6 = create(:invoice_item, quantity: 7, unit_price: 20375, item: item_for_merchant_5, invoice: invoice_1)
+      invoice_item_7 = create(:invoice_item, quantity: 4, unit_price: 79285, item: item_for_merchant_6, invoice: invoice_1)
+
+      expect(Merchant.top_merchants).to eq([merchant_2, merchant_6, merchant_1, merchant_5, merchant_3])
+    end
+  end
 end
