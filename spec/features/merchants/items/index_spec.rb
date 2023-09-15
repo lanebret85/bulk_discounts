@@ -49,4 +49,13 @@ RSpec.describe "Merchant Items Index" do
       end
     end
   end
+
+  describe "The items are links" do
+    it "Goes to the item show page" do
+      within("div.item-list") do
+        expect(page).to have_link("#{@item1.name}")
+        expect(page).to have_link("#{@item2.name}")
+      end
+    end
+  end
 end

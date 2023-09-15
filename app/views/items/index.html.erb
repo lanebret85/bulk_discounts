@@ -3,6 +3,6 @@
 <div class="item-list">
 <h4>Items List:</h4>
   <% @merchant.items.each do |item| %>
-    <p><%= item.name %></p>
+    <p><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></p>
   <% end %>
 </div>
