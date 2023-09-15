@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-require 'rails_helper'
-
 RSpec.describe "Invoice Index", type: :feature do
     before (:each) do
         @merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
