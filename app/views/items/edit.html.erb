@@ -3,16 +3,16 @@
 <div class="edit-item-details">
 <h2>Item Details:</h2>
   <%= form_with url: "/merchants/#{@merchant.id}/items/#{@item.id}/edit", method: :patch, local: true do |form| %>
-    <%= f.label :name, "Name: " %>
-    <%= f.text_field :name %>
+    <%= form.label :name, "Name: " %>
+    <%= form.text_field :name %>
 
-    <%= f.label :description, "Description: " %>
-    <%= f.text_field :description %>
+    <%= form.label :description, "Description: " %>
+    <%= form.text_field :description %>
 
-    <%= f.label :unit_price, "Current Selling Price: " %>
-    <%= f.text_field :unit_price %>
+    <%= form.label :unit_price, "Current Selling Price: " %>
+    <%= form.text_field :unit_price %>
 
-    <%= f.submit "Submit Changes"%>
+    <%= form.submit "Submit Changes"%>
   <% end %>
 
   <p><strong>Name: </strong><%= @item.name %></p>
