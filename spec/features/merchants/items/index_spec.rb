@@ -42,8 +42,11 @@ RSpec.describe "Merchant Items Index" do
   
   describe "Shows all the items for a merchant" do
     it "Can see the list" do
-      expect(page).to have_content(@item1.name)
-      expect(page).to have_content(@item2.name)
+      within("div.item-list") do
+        expect(page).to have_content(@item1.name)
+        expect(page).to have_content(@item2.name)
+        expect(page).to_not have_content(@item3.name)
+      end
     end
   end
 end
