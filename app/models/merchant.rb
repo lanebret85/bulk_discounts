@@ -15,8 +15,4 @@ class Merchant < ApplicationRecord
   def item_to_be_shipped
     Item.select("items.*, invoice_items.invoice_id, invoices.created_at").joins(invoice_items: :invoice).where.not(invoice_items: {status: 2 }).order("invoices.created_at ASC")
   end
-
-  # def modify_date_display(date)
-  #   date.strftime("%A, %B %-d, %Y")
-  # end
 end
