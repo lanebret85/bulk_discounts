@@ -2,20 +2,16 @@
 
 <div class="edit-item-details">
 <h2>Item Details:</h2>
-  <%= form_with url: "/merchants/#{@merchant.id}/items/#{@item.id}/edit", method: :patch, local: true do |form| %>
-    <%= form.label :name, "Name: " %>
-    <%= form.text_field :name %>
+  <%= form_with model: @item, url: "/merchants/#{@merchant.id}/items/#{@item.id}", method: :patch, local: true do |form| %>
+    <p><%= form.label :name, "Name: " %>
+    <%= form.text_field :name %></p>
 
-    <%= form.label :description, "Description: " %>
-    <%= form.text_field :description %>
+    <p><%= form.label :description, "Description: " %>
+    <%= form.text_field :description %></p>
 
-    <%= form.label :unit_price, "Current Selling Price: " %>
-    <%= form.text_field :unit_price %>
+    <p><%= form.label :unit_price, "Current Selling Price: " %>
+    <%= form.text_field :unit_price %></p>
 
-    <%= form.submit "Submit Changes"%>
+    <p><%= form.submit "Submit"%></p>
   <% end %>
-
-  <p><strong>Name: </strong><%= @item.name %></p>
-  <p><strong>Description: </strong><%= @item.description %></p>
-  <p><strong>Current Selling Price: </strong><%= @item.unit_price %></p>
 </div>
