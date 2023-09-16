@@ -12,9 +12,9 @@ RSpec.describe "Merchants dashboard", type: :feature do
         @customer5 = Customer.create(first_name: "Sarah", last_name: "Who")
         @customer6 = Customer.create(first_name: "Chandni", last_name: "Sue")
         
-        @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id)
-        @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id)
-        @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id)
+        @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id, description: "Food")
+        @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id, description: "Drink")
+        @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id, description: "Food")
         
         @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
         @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id, created_at: 6.days.ago)
@@ -93,8 +93,8 @@ RSpec.describe "Merchants dashboard", type: :feature do
 
         it "the id of each item links to the merchant invoice show page" do
             within("div.items-to-ship") do
-                expect(page).to have_link(@invoice1.id)
-                click_link(@invoice1.id)
+                expect(page).to have_link("#{@invoice1.id}")
+                click_link("#{@invoice1.id}")
                 expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
             end
         end
