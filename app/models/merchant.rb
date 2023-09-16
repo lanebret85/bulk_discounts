@@ -16,4 +16,16 @@ class Merchant < ApplicationRecord
   def item_to_be_shipped
     Item.select("items.*, invoice_items.invoice_id, invoices.created_at").joins(invoice_items: :invoice).where.not(invoice_items: {status: 2 }).order("invoices.created_at ASC")
   end
+
+  def self.top_merchants
+    Merchant.joins(:transactions).select("merchants.id, merchants.name, avg(transactions.result), sum (invoice_items.unit_price * invoice_items.quantity) as total_revenue").where("transactions.result = 0").group(:id).order(total_revenue: :desc).limit(5)
+  end
+
+  def best_day
+    Merchant.joins(:invoices).select("max((invoice_items.quantity) * (invoice_items.unit_price)) as total_revenue, date(invoices.created_at) as date").where("merchants.name = ?", self.name).group(:date).order(total_revenue: :desc).first.date.strftime('%-m/%d/%y')
+  end
+
+  # def modify_date_display(date)
+  #   date.strftime("%A, %B %-d, %Y")
+  # end
 end
