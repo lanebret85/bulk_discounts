@@ -3,6 +3,14 @@
 <div class="item-list">
 <h4>Items List:</h4>
   <% @merchant.items.each do |item| %>
-    <p><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></p>
+    <p>
+      <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
+      <% if item.status == 1 %>
+        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch, do |form| %>
+          <%= form.hidden_field :status, value: 'Disabled' %>
+          <%= form.submit "Disable" %>
+        <% end %>
+      <% end %>
+    </p>
   <% end %>
 </div>
