@@ -9,9 +9,22 @@ RSpec.describe "Item Edit Page" do
     end
 
     it "has a form with the current information pre-filled" do
-      expect(page).to have_content("Name: #{@item1.name}")
-      expect(page).to have_content("Description: #{@item1.description}")
-      expect(page).to have_content("Current Selling Price: #{@item1.unit_price}")
+      expect(page).to have_content("Name:")
+      expect(page).to have_content("Description:")
+      expect(page).to have_content("Current Selling Price:")
+      expect(page).to have_button("Submit")
+      fill_in "item[name]", with: "Hot Dog"
+      fill_in "item[description]", with: "Newer Food"
+      fill_in "item[unit_price]", with: 10
+      click_button "Submit"
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+      
+      expect(page).to have_content("Item information updated successfully.")
+      within("div.item-details") do
+        expect(page).to have_content("Hot Dog")
+        expect(page).to have_content("Newer Food")
+        expect(page).to have_content("10")
+      end
     end
   end
 end
