@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get "/admin/merchants/:merchant_id/edit", to: "admin/merchants#edit"
   patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
   post "/admin/merchants", to: "admin/merchants#create"
+
+  get "/admin/invoices", to: "admin/invoices#index"
 end
