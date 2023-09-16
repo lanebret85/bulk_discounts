@@ -60,4 +60,16 @@ RSpec.describe "Merchant Items Index" do
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
     end
   end
+
+  describe "Next to each item there should be a 'disable' or 'enable' button" do
+    it "The 'disable' and 'enable' buttons exist" do
+      within("div.item-list") do
+        expect(page).to have_button("Disable")
+        expect(page).to have_button("Enable")
+      end
+    end
+
+    xit "When the button is clicked, it updates the item's status" do
+    end
+  end
 end
