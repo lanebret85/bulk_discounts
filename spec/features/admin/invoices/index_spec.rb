@@ -9,9 +9,10 @@ RSpec.describe "Admin Invoices Index Page", type: :feature do
 
       visit admin_invoices_path
 
-      expect(page).to have_content("Admin Invoices")
+      expect(page).to have_content("Invoices")
 
       invoices_for_customer_1.each do |invoice|
+        expect(page).to have_content("Invoice ##{invoice.id}")
         expect(page).to have_link "#{invoice.id}", href: "/admin/invoices/#{invoice.id}"
       end
     end
