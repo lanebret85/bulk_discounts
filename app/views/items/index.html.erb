@@ -1,14 +1,19 @@
 <h1><%= @merchant.name %> Items</h1></br>
 
 <div class="item-list">
-<h4>Items List:</h4>
+<h2>Items List:</h2>
   <% @merchant.items.each do |item| %>
     <p>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-      <% if item.status == 1 %>
-        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch, do |form| %>
-          <%= form.hidden_field :status, value: 'Disabled' %>
+      <% if item.status == 'enabled' %>
+        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch do |form| %>
+          <%= form.hidden_field :status, value: 'disabled' %>
           <%= form.submit "Disable" %>
+        <% end %>
+      <% else %>
+        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch do |form| %>
+          <%= form.hidden_field :status, value: 'enabled' %>
+          <%= form.submit "Enable" %>
         <% end %>
       <% end %>
     </p>
