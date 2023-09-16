@@ -13,9 +13,9 @@ RSpec.describe "Invoice Index", type: :feature do
         @customer6 = Customer.create(first_name: "Chandni", last_name: "Sue")
         @customer7 = Customer.create(first_name: "Dylan", last_name: "Scott")
         
-        @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id)
-        @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id)
-        @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id)
+        @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id, description: "Food")
+        @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id, description: "Drink")
+        @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id, description: "Food")
         
         @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
         @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id, created_at: 6.days.ago)
