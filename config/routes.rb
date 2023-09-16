@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   post "/admin/merchants", to: "admin/merchants#create"
 
   get "/admin/invoices", to: "admin/invoices#index"
+  get "/admin/invoices/:invoice_id", to: "admin/invoices#show"
 end
