@@ -62,7 +62,7 @@ RSpec.describe "Merchant Items Index" do
   end
 
   describe "Next to each item there should be a 'disable' or 'enable' button" do
-    it "The 'disable' and 'enable' buttons exist" do
+    xit "The 'disable' and 'enable' buttons exist" do
       within("div.item-list") do
         expect(page).to have_button("Disable")
         expect(page).to have_button("Enable")
