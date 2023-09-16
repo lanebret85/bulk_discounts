@@ -48,5 +48,25 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
             expect(page).to have_content("Created on: #{@invoice1.created_at.strftime("%A, %B %-d, %Y")}")
             expect(page).to have_content("Customer: #{@invoice1.customer.full_name}")
         end
+
+        it 'displays item name, quantity, price, and invoice item status for this merchant' do
+            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+        
+            @invoice1.invoice_items.each do |invoice_item|
+              expect(page).to have_content(invoice_item.item.name)
+              expect(page).to have_content(invoice_item.quantity)
+              expect(page).to have_content(invoice_item.unit_price)
+              expect(page).to have_content(invoice_item.status)
+            end
+        end
+
+        it 'does not display any information related to items for other merchants' do
+            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+        
+            @invoice1.invoice_items.each do |invoice_item|
+              expect(page).to_not have_content(@item3.name)
+              expect(page).to_not have_content(@item3.unit_price)
+            end
+        end
     end
 end
