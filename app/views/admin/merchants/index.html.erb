@@ -23,3 +23,10 @@
   <% end %>
 <% end %>
 </section>
+
+<h2>Top Merchants</h2>
+<section id="top-five">
+  <% @top_five_merchants.each_with_index do |merchant, index| %>
+    <p><%= "#{index+1}. #{merchant.name} - #{number_to_currency((merchant.total_revenue)/100.0)} in sales" %></p><br>
+  <% end %>
+</section>
