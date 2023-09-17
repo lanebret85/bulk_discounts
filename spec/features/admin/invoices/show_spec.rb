@@ -20,9 +20,9 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
     it "I the invoice ic, invoice status, invoice created_at in correct format, and customer first and last name" do
       visit "/admin/invoices/#{@invoice_1.id}"
 
-      expect(page).to have_content("Invoice #{@invoice_1.id}")
+      expect(page).to have_content("Invoice ##{@invoice_1.id}")
       expect(page).to have_select("Status:", selected: "#{@invoice_1.status}")
-      expect(page).to have_content("Created: Sunday, March 25, 2012")
+      expect(page).to have_content("Created on: Sunday, March 25, 2012")
       expect(page).to have_content("Customer: #{@customer_1.first_name} #{@customer_1.last_name}")
     end
 
