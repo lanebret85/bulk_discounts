@@ -50,7 +50,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
       select "completed", from: "Status:"
 
-      click_button "Update Invoice"
+      click_button "Update Invoice Status"
 
       expect(page).to have_select("Status:", selected: "completed")
       end

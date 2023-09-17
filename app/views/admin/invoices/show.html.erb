@@ -3,7 +3,7 @@
 <%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, data: { turbo: false } do |form| %>
   <%= form.label :status, "Status:" %>
   <%= form.select :status, ["cancelled", "completed", "in progress"], selected: @invoice.status %>
-  <%= form.submit "Update Invoice" %>
+  <%= form.submit "Update Invoice Status" %>
 <% end %>
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
 <p>Total Revenue: <%= number_to_currency((@invoice.total_revenue)/100.0) %></p>
