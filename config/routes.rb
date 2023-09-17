@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   post "/admin/merchants", to: "admin/merchants#create"
 
   resources :admin, only: [:index]
+
+  get "/admin/invoices", to: "admin/invoices#index"
 end
