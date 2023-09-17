@@ -10,7 +10,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       visit "/admin/invoices/#{invoice_1.id}"
 
       expect(page).to have_content("Invoice #{invoice_1.id}")
-      expect(page).to have_content("Status: #{invoice_1.status}")
+      expect(page).to have_select("Status:", selected: "#{invoice_1.status}")
       expect(page).to have_content("Created: Sunday, March 25, 2012")
       expect(page).to have_content("Customer: #{customer_1.first_name} #{customer_1.last_name}")
     end
@@ -31,6 +31,24 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       visit "/admin/invoices/#{invoice_1.id}"
 
       expect(page).to have_content("Total Revenue: $2,700.48")
+    end
+  end
+
+  describe "I see the invoice status is a select field with the current status selected" do
+    describe "When I click this I can change the status for the invoice and use the button update invoice status" do
+      it "when I click the button I am taken back to the show page and the status has been updated" do
+      customer_1 = create(:customer)
+
+      invoice_1 = create(:invoice, status: 2, customer: customer_1)
+
+      visit "/admin/invoices/#{invoice_1.id}"
+
+      select "completed", from: "Status:"
+
+      click_button "Update Invoice"
+
+      expect(page).to have_select("Status:", selected: "completed")
+      end
     end
   end
 end
