@@ -15,6 +15,30 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       expect(page).to have_content("Customer: #{customer_1.first_name} #{customer_1.last_name}")
     end
 
+    it "I see all of the invoice's items, including the item name, the quantity ordered, the price it sold at, and the invoice item status" do
+      customer_1 = create(:customer)
+
+      invoice_1 = create(:invoice, customer: customer_1)
+
+      merchant_1 = create(:merchant)
+
+      item_1 = create(:item, merchant: merchant_1)
+      item_2 = create(:item, merchant: merchant_1)
+      item_3 = create(:item, merchant: merchant_1)
+
+      invoice_item_1 = create(:invoice_item, unit_price: 93675, invoice: invoice_1, item: item_1)
+      invoice_item_2 = create(:invoice_item, unit_price: 23756, invoice: invoice_1, item: item_2)
+      invoice_item_3 = create(:invoice_item, unit_price: 79265, invoice: invoice_1, item: item_3)
+
+      visit "/admin/invoices/#{invoice_1.id}"
+
+      expect(page).to have_content("Items on this Invoice:")
+
+      expect(page).to have_content("Item Name: #{item_1.name} Quantity: #{invoice_item_1.quantity} Unit Price: $936.75 Status: #{invoice_item_1.status}")
+      expect(page).to have_content("Item Name: #{item_2.name} Quantity: #{invoice_item_2.quantity} Unit Price: $237.56 Status: #{invoice_item_2.status}")
+      expect(page).to have_content("Item Name: #{item_3.name} Quantity: #{invoice_item_3.quantity} Unit Price: $792.65 Status: #{invoice_item_3.status}")
+    end
+
     it "I see the total revenue that will be generated from this invoice" do
       customer_1 = create(:customer)
 
