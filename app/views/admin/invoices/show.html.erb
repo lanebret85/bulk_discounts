@@ -9,3 +9,9 @@
 <p>Total Revenue: <%= number_to_currency((@invoice.total_revenue)/100.0) %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
+<h2>Items on this Invoice:</h2>
+<% @invoice_items.each do |item| %>
+  <p>Item Name: <%= item.name %> Quantity: <%= item.quantity %> Unit Price: <%= number_to_currency((item.unit_price)/100.0) %> Status: <%= item.status %></p>
+<% end %>
+
+
