@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
   post "/admin/merchants", to: "admin/merchants#create"
 
-  get "/admin/invoices", to: "admin/invoices#index"
-  get "/admin/invoices/:invoice_id", to: "admin/invoices#show"
-  patch "/admin/invoices/:invoice_id", to: "admin/invoices#update"
+  namespace :admin do
+    resources :invoices, only: [:index, :show, :update]
+  end
 
   resources :admin, only: [:index]
 end
