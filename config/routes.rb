@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   get "/admin/invoices", to: "admin/invoices#index"
   get "/admin/invoices/:invoice_id", to: "admin/invoices#show"
   patch "/admin/invoices/:invoice_id", to: "admin/invoices#update"
+
+  resources :admin, only: [:index]
 end
