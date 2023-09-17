@@ -7,4 +7,9 @@ class InvoiceItem < ApplicationRecord
   validates :quantity, presence: true
   validates :unit_price, presence: true
   validates :status, presence: true
+
+  def self.find_items(current_invoice)
+    InvoiceItem.joins(:item).select("invoice_items.quantity, invoice_items.status, invoice_items.unit_price, items.name").where("invoice_items.invoice_id = ?", current_invoice.id)
+  end
+
 end
