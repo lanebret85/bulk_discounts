@@ -6,12 +6,12 @@
     <p>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
       <% if item.status == 'enabled' %>
-        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch do |form| %>
+        <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch do |form| %>
           <%= form.hidden_field :status, value: 'disabled' %>
           <%= form.submit "Disable" %>
         <% end %>
       <% else %>
-        <%= form_with url: "/merchants/#{@merchant.id}/items", method: :patch do |form| %>
+        <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch do |form| %>
           <%= form.hidden_field :status, value: 'enabled' %>
           <%= form.submit "Enable" %>
         <% end %>
