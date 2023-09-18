@@ -93,8 +93,8 @@ RSpec.describe "Merchants dashboard", type: :feature do
 
         it "the id of each item links to the merchant invoice show page" do
             within("div.items-to-ship") do
-                expect(page).to have_link(@invoice1.id)
-                click_link(@invoice1.id)
+                expect(page).to have_link("#{@invoice1.id}")
+                click_link("#{@invoice1.id}")
                 expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
             end
         end
