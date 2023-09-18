@@ -19,11 +19,12 @@ class ItemsController < ApplicationController
 
       if params[:commit] == 'Enable'
          @item.update(status: 'enabled')
+         redirect_to "/merchants/#{@merchant.id}/items"
       elsif params[:commit] == 'Disable'
          @item.update(status: 'disabled')
-      end
+         redirect_to "/merchants/#{@merchant.id}/items"
 
-      if @item.update(item_params)
+      elsif @item.update(item_params)
          redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
          flash[:success] = "Item information updated successfully."
       else
@@ -36,5 +37,5 @@ class ItemsController < ApplicationController
 
    def item_params
       params.require(:item).permit(:name, :description, :unit_price, :status)
-    end
+   end
 end

@@ -3,7 +3,7 @@
 <div class="item-list">
 <h2>Items List:</h2>
   <% @merchant.items.each do |item| %>
-    <div id="#{item.name}">
+    <div id=<%=item.name%>>
       <p>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
       <% if item.status == 'enabled' %>
