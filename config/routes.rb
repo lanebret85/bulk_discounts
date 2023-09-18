@@ -4,12 +4,16 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "items#index"
-  get "/merchants/:merchant_id/invoices", to: "invoices#index"
-  get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
-  post "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#update"
+
+  resources :merchants do
+    resources :invoices, only: [:index, :show, :update]
+  end
+
+  # get "/merchants/:merchant_id/invoices", to: "invoices#index"
+  # get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
+  # post "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#update"
 
   get "/admin/merchants", to: "admin/merchants#index"
   get "/admin/merchants/new", to: "admin/merchants#new"
