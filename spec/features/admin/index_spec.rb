@@ -1,17 +1,34 @@
 require "rails_helper"
 
-RSpec.describe Customer, type: :model do
-  describe "relationships" do
-    it { should have_many(:invoices) }
+RSpec.describe "Admin Dashboard", type: :feature do
+  before :each do
+    
   end
 
-  describe "validations" do
-    it { should validate_presence_of :first_name }
-    it { should validate_presence_of :last_name }
-  end
+  describe "When I visit the admin dashboard" do
+    it "displays a header 'Admin Dashboard'" do
+      visit "/admin"
 
-  describe ".top_customers" do
-    it "returns the top 5 customers based on number of successful transactions" do
+      expect(page).to have_content("Admin Dashboard")
+    end
+
+    it "displays links to the admin merchants index" do
+      visit "/admin"
+
+      click_link "Admin Merchants Index"
+
+      expect(current_path).to eq(admin_merchants_path)
+    end
+
+    it "displays a link to the admin invoices index" do
+      visit "/admin"
+
+      click_link "Admin Invoices Index"
+
+      expect(current_path).to eq("/admin/invoices")
+    end
+
+    it "displays the names of the top 5 customers who have the most transactions that are successful, and I see the number of successful transactions they've had next to each" do
       customer_1 = create(:customer)
       customer_2 = create(:customer)
       customer_3 = create(:customer)
@@ -63,19 +80,22 @@ RSpec.describe Customer, type: :model do
       transaction_35 = create(:transaction, invoice: invoice_6, result: 1)
       transaction_36 = create(:transaction, invoice: invoice_6, result: 1)
 
-      query = Customer.top_customers
+      visit "/admin"
 
-      expect(query).to eq([customer_1, customer_2, customer_3, customer_4, customer_5])
-    end
-  end
+      expect(page).to have_content("Top 5 Customers:")
+      within "#top-five" do
+        expect(page).to have_content("1. #{customer_1.first_name} #{customer_1.last_name} - 6 purchases")
+        expect(page).to have_content("2. #{customer_2.first_name} #{customer_2.last_name} - 5 purchases")
+        expect(page).to have_content("3. #{customer_3.first_name} #{customer_3.last_name} - 4 purchases")
+        expect(page).to have_content("4. #{customer_4.first_name} #{customer_4.last_name} - 3 purchases")
+        expect(page).to have_content("5. #{customer_5.first_name} #{customer_5.last_name} - 2 purchases")
 
-  describe "full_name" do
-    it "returns the customers full name" do
-      customer1 = Customer.create!(first_name: "Curtis", last_name: "O'Dell")
-      customer2 = Customer.create!(first_name: "Joe", last_name: "Franco")
-
-      expect(customer1.full_name).to eq("Curtis O'Dell")
-      expect(customer2.full_name).to eq("Joe Franco")
+        expect(customer_1.first_name).to appear_before(customer_2.first_name)
+        expect(customer_2.first_name).to appear_before(customer_3.first_name)
+        expect(customer_3.first_name).to appear_before(customer_4.first_name)
+        expect(customer_4.first_name).to appear_before(customer_5.first_name)
+        expect(page).to_not have_content(customer_6.first_name)
+      end
     end
   end
 end

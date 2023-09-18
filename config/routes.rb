@@ -11,9 +11,11 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :show, :update]
   end
 
-  # get "/merchants/:merchant_id/invoices", to: "invoices#index"
-  # get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
-  # post "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#update"
+  get "/merchants/:merchant_id/items/:item_id", to: "items#show"
+  get "/merchants/:merchant_id/items/:item_id/edit", to: "items#edit"
+  patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
+  get "/merchants/:merchant_id/invoices", to: "invoices#index"
+  get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
 
   get "/admin/merchants", to: "admin/merchants#index"
   get "/admin/merchants/new", to: "admin/merchants#new"
@@ -21,4 +23,10 @@ Rails.application.routes.draw do
   get "/admin/merchants/:merchant_id/edit", to: "admin/merchants#edit"
   patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
   post "/admin/merchants", to: "admin/merchants#create"
+
+  namespace :admin do
+    resources :invoices, only: [:index, :show, :update]
+  end
+
+  resources :admin, only: [:index]
 end
