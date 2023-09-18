@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
   get "/merchants/:merchant_id/items", to: "items#index"
+  get "/merchants/:merchant_id/items/:item_id", to: "items#show"
+  get "/merchants/:merchant_id/items/:item_id/edit", to: "items#edit"
+  patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
   get "/merchants/:merchant_id/invoices", to: "invoices#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
   post "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#update"
@@ -17,4 +20,8 @@ Rails.application.routes.draw do
   get "/admin/merchants/:merchant_id/edit", to: "admin/merchants#edit"
   patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
   post "/admin/merchants", to: "admin/merchants#create"
+
+  resources :admin, only: [:index]
+
+  get "/admin/invoices", to: "admin/invoices#index"
 end
