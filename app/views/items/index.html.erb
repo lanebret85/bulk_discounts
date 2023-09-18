@@ -3,7 +3,8 @@
 <div class="item-list">
 <h2>Items List:</h2>
   <% @merchant.items.each do |item| %>
-    <p>
+    <div id="#{item.name}">
+      <p>
       <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
       <% if item.status == 'enabled' %>
         <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch do |form| %>
@@ -16,6 +17,7 @@
           <%= form.submit "Enable" %>
         <% end %>
       <% end %>
-    </p>
+      </p>
+    </div>
   <% end %>
 </div>
