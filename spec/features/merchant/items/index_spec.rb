@@ -79,4 +79,25 @@ RSpec.describe "Merchant Items Index" do
       end 
     end
   end
+
+  describe "Should have a 'disabled' and 'enabled' section" do
+    it "Should have an 'disabled' section" do
+      expect(page).to have_content("Disabled Items:")
+      expect(page).to have_content("Enabled Items:")
+
+      within("div.disabled-items") do
+        expect(page).to have_content("#{@item1.name}")
+        expect(page).to have_content("#{@item2.name}")
+      end
+
+      within("##{@item1.name}") do
+        click_button("Enable")
+      end
+
+      within("div.enabled-items") do
+        expect(page).to have_content("#{@item1.name}")
+        expect(page).to_not have_content("#{@item2.name}")
+      end
+    end
+  end
 end

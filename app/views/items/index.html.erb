@@ -2,7 +2,7 @@
 
 <div class="item-list">
 <h2>Items List:</h2>
-  <h3>Enabled Items</h3>
+  <h3>Enabled Items:</h3>
   <div class="enabled-items">
     <% @merchant.items.select { |item| item.status == 'enabled' }.each do |item| %>
       <div id=<%=item.name%>>
