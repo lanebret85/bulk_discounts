@@ -9,6 +9,6 @@ class Invoice < ApplicationRecord
   validates :status, presence: true #inclusion:{in: ["cancelled", "completed", "in progress"]}
 
   def total_revenue
-    Invoice.joins(:invoice_items).where(id: self.id).sum("invoice_items.quantity * invoice_items.unit_price")
+    invoice_items.sum('quantity * unit_price')
   end
 end
