@@ -14,7 +14,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
         
         @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id)
         @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id)
-        @item3 = Item.create!(name: "Pretzels", unit_price: 7, merchant_id: @merchant2.id)
+        @item3 = Item.create!(name: "Pretzels", unit_price: 897656, merchant_id: @merchant2.id)
         
         @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
         @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id, created_at: 6.days.ago)
