@@ -43,11 +43,14 @@ RSpec.describe Invoice, type: :model do
       customer_6 = create(:customer)
 
       invoice_1 = create(:invoice, customer: customer_1, status: 1)
+      sleep 1
       invoice_2 = create(:invoice, customer: customer_2, status: 1)
       invoice_3 = create(:invoice, customer: customer_3, status: 1)
       invoice_4 = create(:invoice, customer: customer_4, status: 1)
       invoice_5 = create(:invoice, customer: customer_5, status: 1)
       invoice_6 = create(:invoice, customer: customer_6, status: 1)
+      sleep 1
+      invoice_7 = create(:invoice, customer: customer_1, status: 1)
 
       merchant_1 = create(:merchant)
 
@@ -59,12 +62,13 @@ RSpec.describe Invoice, type: :model do
       invoice_item_4 = create(:invoice_item, quantity: 2, unit_price: 32563, item: item_1, invoice: invoice_4, status: 2)
       invoice_item_5 = create(:invoice_item, quantity: 5, unit_price: 10385, item: item_1, invoice: invoice_5, status: 2)
       invoice_item_6 = create(:invoice_item, quantity: 1, unit_price: 73920, item: item_1, invoice: invoice_6, status: 2)
-      invoice_item_7 = create(:invoice_item, quantity: 4, unit_price: 79285, item: item_1, invoice: invoice_1, status: 0)
-      invoice_item_8 = create(:invoice_item, quantity: 3, unit_price: 32563, item: item_1, invoice: invoice_2, status: 1)
+      invoice_item_7 = create(:invoice_item, quantity: 5, unit_price: 11894, item: item_1, invoice: invoice_7, status: 1)
+      invoice_item_8 = create(:invoice_item, quantity: 4, unit_price: 79285, item: item_1, invoice: invoice_1, status: 0)
+      invoice_item_9 = create(:invoice_item, quantity: 3, unit_price: 32563, item: item_1, invoice: invoice_2, status: 1)
 
       query = Invoice.incomplete_invoices
 
-      expect(query).to match_array([invoice_1, invoice_2])
+      expect(query).to eq([invoice_1, invoice_2, invoice_7])
     end
   end
 end
