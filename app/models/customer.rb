@@ -7,4 +7,8 @@ class Customer < ApplicationRecord
   def self.top_customers
     Customer.select('customers.*, COUNT(transactions.id) as success_transactions').joins(invoices: :transactions).where(transactions: { result: "success" }).group('customers.id').order('success_transactions DESC').limit(5)
   end
+
+  def full_name
+    first_name + " " + last_name
+  end
 end
