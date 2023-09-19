@@ -6,9 +6,12 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
+<<<<<<<<< Temporary merge branch 1
   validates :status, presence: true #inclusion:{in: ["cancelled", "completed", "in progress"]}
-
+=========
   def total_revenue
     invoice_items.sum('quantity * unit_price')
   end
+
+>>>>>>>>> Temporary merge branch 2
 end
