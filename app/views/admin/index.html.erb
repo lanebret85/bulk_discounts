@@ -3,6 +3,15 @@
 <%= link_to "Admin Merchants Index", admin_merchants_path %>
 <%= link_to "Admin Invoices Index", "/admin/invoices" %>
 
+<h2>Incomplete Invoices</h2>
+<section id="incomplete">
+<ul>
+  <% @incomplete_invoices.each do |invoice| %>
+    <li>#<%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></li>
+  <% end %>
+</ul>
+</section>
+
 <h2>Top 5 Customers:</h2>
 <section id="top-five">
 <% @top_five_customers.each_with_index do |customer, index| %>
