@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Merchant Items Index" do
+RSpec.describe "Merchant Items New Page" do
   before (:each) do
     @merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
     @merchant2 = Merchant.create!(name: "POP BURGER SHOP")
@@ -40,5 +40,21 @@ RSpec.describe "Merchant Items Index" do
     visit "/merchants/#{@merchant1.id}/items/new"
   end
 
+  describe "Create new item" do
+    it "Has a form to fill out for a new item" do
+      expect(page).to have_content("Create a new item")
+      expect(page).to have_content("Add a Name:")
+      expect(page).to have_content("Give a Description:")
+      expect(page).to have_content("Set a Price:")
+      expect(page).to have_button("Submit")
+    end
 
+    it "After making a new item, leads back to the '.../items/index' page" do
+      fill_in "Add a Name:", with: "Fries"
+      fill_in "Give a Description:", with: "Po-Ta-Toes, boil 'em, mash 'em, stick 'em in a stew"
+      fill_in "Set a Price:", with: 5
+      click_button "Submit"
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+    end
+  end
 end
