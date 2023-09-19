@@ -13,6 +13,6 @@ class Invoice < ApplicationRecord
   end
 
   def self.incomplete_invoices
-    Invoice.joins(:invoice_items).distinct.where("invoice_items.status != ?", 2)
+    Invoice.select("invoices.*, invoice_items.invoice_id, invoices.created_at").joins(:invoice_items).distinct.where("invoice_items.status != ?", 2).order("invoices.created_at")
   end
 end
