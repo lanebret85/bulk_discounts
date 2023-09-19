@@ -54,7 +54,11 @@ RSpec.describe "Merchant Items New Page" do
       fill_in "Give a Description:", with: "Po-Ta-Toes, boil 'em, mash 'em, stick 'em in a stew"
       fill_in "Set a Price:", with: 5
       click_button "Submit"
+      
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+      within("div.disabled-items") do
+        expect(page).to have_content("Fries")
+      end
     end
   end
 end
