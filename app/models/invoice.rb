@@ -12,4 +12,7 @@ class Invoice < ApplicationRecord
     invoice_items.sum('quantity * unit_price')
   end
 
+  def self.incomplete_invoices
+    Invoice.select("invoices.*, invoice_items.invoice_id, invoices.created_at").joins(:invoice_items).distinct.where("invoice_items.status != ?", 2).order("invoices.created_at")
+  end
 end
