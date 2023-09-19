@@ -11,4 +11,8 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum('quantity * unit_price')
   end
+
+  def self.incomplete_invoices
+    Invoice.joins(:invoice_items).distinct.where("invoice_items.status != ?", 2)
+  end
 end
