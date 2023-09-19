@@ -129,14 +129,14 @@ RSpec.describe "Admin Dashboard", type: :feature do
       visit "/admin"
 
       expect(page).to have_content("Incomplete Invoices")
-      
+
       within "#incomplete" do
-        expect(page).to have_content(invoice_1)
-        expect(page).to have_content(invoice_2)
-        expect(page).to_not have_content(invoice_3)
-        expect(page).to_not have_content(invoice_4)
-        expect(page).to_not have_content(invoice_5)
-        expect(page).to_not have_content(invoice_6)
+        expect(page).to have_content(invoice_1.id)
+        expect(page).to have_content(invoice_2.id)
+        expect(page).to_not have_content(invoice_3.id)
+        expect(page).to_not have_content(invoice_4.id)
+        expect(page).to_not have_content(invoice_5.id)
+        expect(page).to_not have_content(invoice_6.id)
       end
     end
   end
