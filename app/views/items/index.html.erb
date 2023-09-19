@@ -2,6 +2,13 @@
 
 <div class="item-list">
 <h2>Items List:</h2>
+  <h3>Top 5 Most Popular Items:</h3>
+  <div class="top-5-items">
+    <% @merchant.top_5_items.each do |item| %>
+      <p><%= item.name %></p>
+    <% end %>
+  </div></br>
+
   <h3>Enabled Items:</h3>
   <div class="enabled-items">
     <% @merchant.items.select { |item| item.status == 'enabled' }.each do |item| %>
