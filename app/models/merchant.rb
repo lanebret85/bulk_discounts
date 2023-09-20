@@ -17,12 +17,6 @@ class Merchant < ApplicationRecord
     Item.select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue").joins(invoice_items: { invoice: :transactions }).where(transactions: { result: "success" }).group("items.id").order("revenue DESC").limit(5)
   end
 
-  def item_revenue(item)
-    invoices_with_successful_transactions = invoices.joins(:transactions).where(transactions: { result: 'success' })
-    
-    item.invoice_items.joins(:invoice).where(invoices: { id: invoices_with_successful_transactions }).sum("invoice_items.quantity * invoice_items.unit_price")
-  end
-      
   def item_to_be_shipped
     Item.select("items.*, invoice_items.invoice_id, invoices.created_at").joins(invoice_items: :invoice).where.not(invoice_items: {status: 2 }).order("invoices.created_at ASC")
   end
