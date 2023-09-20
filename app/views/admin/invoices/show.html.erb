@@ -5,9 +5,7 @@
   <%= form.select :status, ["cancelled", "completed", "in progress"], selected: @invoice.status %>
   <%= form.submit "Update Invoice Status" %>
 <% end %>
-<p>Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-<p>Total Revenue: <%= number_to_currency((@invoice.total_revenue)/100.0) %></p>
-<p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
+<%= render partial: "shared/invoice_information" %>
 
 <h2>Items on this Invoice:</h2>
 <% @invoice.invoice_items.each do |invoice_item| %>
