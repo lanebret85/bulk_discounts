@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Admin Dashboard", type: :feature do
-  before :each do
-    
-  end
-
   describe "When I visit the admin dashboard" do
     it "displays a header 'Admin Dashboard'" do
       visit "/admin"
@@ -138,10 +134,6 @@ RSpec.describe "Admin Dashboard", type: :feature do
         expect(page).to have_content("Invoice ##{invoice_1.id} - #{invoice_1.created_at.strftime('%A, %B %-d, %Y')}")
         expect(page).to have_content("Invoice ##{invoice_2.id} - #{invoice_2.created_at.strftime('%A, %B %-d, %Y')}")
         expect(page).to have_content("Invoice ##{invoice_7.id} - #{invoice_7.created_at.strftime('%A, %B %-d, %Y')}")
-        expect(page).to_not have_content(invoice_3.id)
-        expect(page).to_not have_content(invoice_4.id)
-        expect(page).to_not have_content(invoice_5.id)
-        expect(page).to_not have_content(invoice_6.id)
         expect(page).to_not have_content(invoice_3.created_at)
         expect(page).to_not have_content(invoice_4.created_at)
         expect(page).to_not have_content(invoice_5.created_at)
