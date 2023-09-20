@@ -191,4 +191,16 @@ RSpec.describe "Merchant Items Index" do
       end
     end
   end
+
+  describe "Top Item's Best Day" do
+    it "Next to each of the 5 most popular items I see the date with the most sales for each item" do
+      within("div.top-5-items") do
+        expect(page).to have_content("Top day for #{@item2.name} was #{Item.item_best_days(@item2).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top day for #{@item1.name} was #{Item.item_best_days(@item1).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top day for #{@item8.name} was #{Item.item_best_days(@item8).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top day for #{@item9.name} was #{Item.item_best_days(@item9).strftime('%-m/%d/%y')}")
+        expect(page).to have_content("Top day for #{@item10.name} was #{Item.item_best_days(@item10).strftime('%-m/%d/%y')}")
+      end
+    end
+  end
 end
