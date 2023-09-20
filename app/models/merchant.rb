@@ -2,7 +2,6 @@ class Merchant < ApplicationRecord
   enum :status, {"enabled" => 0, "disabled" => 1}
 
   validates_presence_of :name, presence: true
-  # validates_presence_of :status, presence: true
   
   has_many :items
   has_many :invoices, through: :items
@@ -24,8 +23,4 @@ class Merchant < ApplicationRecord
   def best_day
     Merchant.joins(:invoices).select("max((invoice_items.quantity) * (invoice_items.unit_price)) as total_revenue, date(invoices.created_at) as date").where("merchants.name = ?", self.name).group(:date).order(total_revenue: :desc).first.date.strftime('%-m/%d/%y')
   end
-
-  # def modify_date_display(date)
-  #   date.strftime("%A, %B %-d, %Y")
-  # end
 end
