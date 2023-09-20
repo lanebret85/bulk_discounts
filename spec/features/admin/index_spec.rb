@@ -7,13 +7,13 @@ RSpec.describe "Admin Dashboard", type: :feature do
 
   describe "When I visit the admin dashboard" do
     it "displays a header 'Admin Dashboard'" do
-      visit "/admin"
+      visit admin_index_path
 
       expect(page).to have_content("Admin Dashboard")
     end
 
     it "displays links to the admin merchants index" do
-      visit "/admin"
+      visit admin_index_path
 
       click_link "Admin Merchants Index"
 
@@ -21,11 +21,11 @@ RSpec.describe "Admin Dashboard", type: :feature do
     end
 
     it "displays a link to the admin invoices index" do
-      visit "/admin"
+      visit admin_index_path
 
       click_link "Admin Invoices Index"
 
-      expect(current_path).to eq("/admin/invoices")
+      expect(current_path).to eq(admin_invoices_path)
     end
 
     it "displays the names of the top 5 customers who have the most transactions that are successful, and I see the number of successful transactions they've had next to each" do
@@ -80,7 +80,7 @@ RSpec.describe "Admin Dashboard", type: :feature do
       transaction_35 = create(:transaction, invoice: invoice_6, result: 1)
       transaction_36 = create(:transaction, invoice: invoice_6, result: 1)
 
-      visit "/admin"
+      visit admin_index_path
 
       expect(page).to have_content("Top 5 Customers:")
       within "#top-five" do
@@ -130,7 +130,7 @@ RSpec.describe "Admin Dashboard", type: :feature do
       invoice_item_8 = create(:invoice_item, quantity: 4, unit_price: 79285, item: item_1, invoice: invoice_1, status: 0)
       invoice_item_9 = create(:invoice_item, quantity: 3, unit_price: 32563, item: item_1, invoice: invoice_2, status: 1)
 
-      visit "/admin"
+      visit admin_index_path
 
       expect(page).to have_content("Incomplete Invoices")
 

@@ -5,23 +5,22 @@ class ItemsController < ApplicationController
 
    def show
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
+      @item = Item.find(params[:id])
    end
 
    def edit
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
+      @item = Item.find(params[:id])
    end
 
    def update
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
-      # require 'pry';binding.pry
+      @item = Item.find(params[:id])
       if @item.update(item_params)
-         redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
+         redirect_to merchant_item_path(@merchant, @item)
          flash[:success] = "Item information updated successfully."
       else
-         redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}/edit"
+         redirect_to edit_merchant_item_path(@merchant, @item)
          flash[:alert] = "Not all updates were saved, please try again."
       end
    end

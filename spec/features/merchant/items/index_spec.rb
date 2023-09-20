@@ -37,7 +37,7 @@ RSpec.describe "Merchant Items Index" do
     @transaction5 = Transaction.create!(invoice_id: @invoice5.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
     @transaction6 = Transaction.create!(invoice_id: @invoice6.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
 
-    visit "/merchants/#{@merchant1.id}/items"
+    visit merchant_items_path(@merchant1)
   end
   
   describe "Shows all the items for a merchant" do
@@ -57,7 +57,7 @@ RSpec.describe "Merchant Items Index" do
         expect(page).to have_link("#{@item2.name}")
       end
       click_link("#{@item1.name}")
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+      expect(current_path).to eq(merchant_item_path(@merchant1, @item1))
     end
   end
 end

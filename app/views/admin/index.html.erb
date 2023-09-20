@@ -1,13 +1,13 @@
 <h1>Admin Dashboard</h1>
 
 <%= link_to "Admin Merchants Index", admin_merchants_path %>
-<%= link_to "Admin Invoices Index", "/admin/invoices" %>
+<%= link_to "Admin Invoices Index", admin_invoices_path %>
 
 <h2>Incomplete Invoices</h2>
 <section id="incomplete">
 <ul>
   <% @incomplete_invoices.each do |invoice| %>
-    <li>Invoice <%= link_to "##{invoice.id}", "/admin/invoices/#{invoice.id}" %> - <%= invoice.created_at.strftime('%A, %B %-d, %Y') %></li>
+    <li>Invoice <%= link_to "##{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.created_at.strftime('%A, %B %-d, %Y') %></li>
   <% end %>
 </ul>
 </section>

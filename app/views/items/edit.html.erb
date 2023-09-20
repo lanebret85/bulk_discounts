@@ -2,7 +2,7 @@
 
 <div class="edit-item-details">
 <h2>Item Details:</h2>
-  <%= form_with model: @item, url: "/merchants/#{@merchant.id}/items/#{@item.id}", method: :patch, local: true do |form| %>
+  <%= form_with model: @item, url: merchant_item_path(@merchant, @item), method: :patch, local: true do |form| %>
     <p><%= form.label :name, "Name: " %>
     <%= form.text_field :name %></p>
 

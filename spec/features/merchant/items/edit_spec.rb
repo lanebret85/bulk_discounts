@@ -5,7 +5,7 @@ RSpec.describe "Item Edit Page" do
     before (:each) do
       @merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
       @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id, description: "Food")
-      visit "/merchants/#{@merchant1.id}/items/#{@item1.id}/edit"
+      visit edit_merchant_item_path(@merchant1, @item1)
     end
 
     it "has a form with the current information pre-filled" do
@@ -17,7 +17,7 @@ RSpec.describe "Item Edit Page" do
       fill_in "item[description]", with: "Newer Food"
       fill_in "item[unit_price]", with: 10
       click_button "Submit"
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+      expect(current_path).to eq(merchant_item_path(@merchant1, @item1))
       
       expect(page).to have_content("Item information updated successfully.")
       within("div.item-details") do

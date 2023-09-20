@@ -4,7 +4,7 @@ class InvoiceItemsController < ApplicationController
       @merchant = Merchant.find(params[:merchant_id])
       @invoice = @invoice_item.invoice
       @invoice_item.update!(invoice_items_params)
-      redirect_to "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
+      redirect_to merchant_invoice_path(@merchant, @invoice)
     end
   
     private

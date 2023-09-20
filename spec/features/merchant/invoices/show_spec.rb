@@ -41,7 +41,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
 
     describe "Invoice Show Page" do
         it "shows all the details for a specific invoice" do
-            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+            visit merchant_invoice_path(@merchant1, @invoice1)
 
             expect(page).to have_content("Invoice #{@invoice1.id}")
             expect(page).to have_content("Status: cancelled")
@@ -50,7 +50,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
         end
 
         it 'displays item name, quantity, price, and invoice item status for this merchant' do
-            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+            visit merchant_invoice_path(@merchant1, @invoice1)
         
             @invoice1.invoice_items.each do |invoice_item|
               expect(page).to have_content(invoice_item.item.name)
@@ -61,7 +61,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
         end
 
         it 'does not display any information related to items for other merchants' do
-            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+            visit merchant_invoice_path(@merchant1, @invoice1)
         
             @invoice1.invoice_items.each do |invoice_item|
               expect(page).to_not have_content(@item3.name)
@@ -70,7 +70,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
         end
 
         it "has total revenue dispayed on the page" do
-            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+            visit merchant_invoice_path(@merchant1, @invoice1)
 
             expect(page).to have_content(@invoice1.total_revenue)
         end

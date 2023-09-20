@@ -15,7 +15,7 @@ Customer: <%= @invoice.customer.full_name %>
       <p><td><%= invoice_item.item.name %></td></p>
       <p><td><%= invoice_item.quantity %></td></p>
       <p><td> <%= invoice_item.unit_price %></td></p>
-      <p><td><%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
+      <p><td><%= form_with url: merchant_invoice_item_path(@merchant, invoice_item), method: :patch, local: true do |form| %>
           <%= form.select :status, InvoiceItem.statuses.keys, { selected: invoice_item.status } %>
           <%= form.submit "Update Item Status" %>
         <% end %>

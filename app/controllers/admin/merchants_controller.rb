@@ -5,7 +5,7 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def new
@@ -13,21 +13,20 @@ class Admin::MerchantsController < ApplicationController
 
   def create
     Merchant.create!(name: params[:name])
-    redirect_to "/admin/merchants"
+    redirect_to admin_merchants_path
   end
 
   def edit
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
-    merchant = Merchant.find(params[:merchant_id])
+    merchant = Merchant.find(params[:id])
     merchant.update(
       merchant_params
     )
-    # binding.pry
     if params[:status].nil?
-      redirect_to "/admin/merchants/#{merchant.id}"
+      redirect_to admin_merchant_path(merchant)
       flash[:notice] = "Merchant information has been successfully updated!"
     else
       redirect_to admin_merchants_path

@@ -5,7 +5,7 @@ RSpec.describe "Item Show Page" do
     before (:each) do
       @merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
       @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id, description: "Food")
-      visit "/merchants/#{@merchant1.id}/items/#{@item1.id}"
+      visit merchant_item_path(@merchant1, @item1)
     end
 
     it "Should have the details of the item" do
@@ -21,7 +21,7 @@ RSpec.describe "Item Show Page" do
         expect(page).to have_link("Update Details")
       end
       click_link("Update Details")
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}/edit")
+      expect(current_path).to eq(edit_merchant_item_path(@merchant1, @item1))
     end
   end
 end

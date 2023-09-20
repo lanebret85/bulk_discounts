@@ -6,7 +6,7 @@ RSpec.describe "Admin Merchant Update", type: :feature do
       it "Redirects me back to show page where the info is updated and I see a successfully updated flash message" do
         @merchant_1 = create(:merchant)
 
-        visit "/admin/merchants/#{@merchant_1.id}/edit"
+        visit edit_admin_merchant_path(@merchant_1)
 
         expect(page).to have_content("Edit Merchant")
         expect(page).to have_content("Name:")
@@ -15,7 +15,7 @@ RSpec.describe "Admin Merchant Update", type: :feature do
 
         click_button("Submit")
 
-        expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
+        expect(current_path).to eq(admin_merchant_path(@merchant_1))
 
         expect(page).to have_content("A different name")
         expect(page).to have_content("Merchant information has been successfully updated!")
