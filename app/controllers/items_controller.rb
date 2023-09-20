@@ -8,6 +8,16 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:item_id])
    end
 
+   def new
+      @merchant = Merchant.find(params[:merchant_id])
+   end
+
+   def create
+      @merchant = Merchant.find(params[:merchant_id])
+      Item.create!(name: params[:name], description: params[:description], unit_price: params[:unit_price], merchant_id: params[:merchant_id])
+      redirect_to "/merchants/#{@merchant.id}/items"
+   end
+
    def edit
       @merchant = Merchant.find(params[:merchant_id])
       @item = Item.find(params[:item_id])
@@ -16,8 +26,15 @@ class ItemsController < ApplicationController
    def update
       @merchant = Merchant.find(params[:merchant_id])
       @item = Item.find(params[:item_id])
-      # require 'pry';binding.pry
-      if @item.update(item_params)
+
+      if params[:commit] == 'Enable'
+         @item.update(status: 'enabled')
+         redirect_to "/merchants/#{@merchant.id}/items"
+      elsif params[:commit] == 'Disable'
+         @item.update(status: 'disabled')
+         redirect_to "/merchants/#{@merchant.id}/items"
+
+      elsif @item.update(item_params)
          redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
          flash[:success] = "Item information updated successfully."
       else
@@ -29,6 +46,6 @@ class ItemsController < ApplicationController
    private 
 
    def item_params
-      params.require(:item).permit(:name, :description, :unit_price)
-    end
+      params.require(:item).permit(:name, :description, :unit_price, :status)
+   end
 end
