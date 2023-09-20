@@ -21,5 +21,16 @@ RSpec.describe "Admin Merchant Update", type: :feature do
         expect(page).to have_content("Merchant information has been successfully updated!")
       end
     end
+
+    it "when I don't fill in the info I see an error message" do
+      @merchant_1 = create(:merchant)
+
+      visit edit_admin_merchant_path(@merchant_1)
+      fill_in "Name:", with: ""
+
+      click_button("Submit")
+
+      expect(page).to have_content("Information was not successfully updated, please fill in a name!")
+    end
   end
 end

@@ -17,6 +17,16 @@ RSpec.describe "Admin Merchants New", type: :feature do
       within("#disabled-merchants") do
         expect(page).to have_content("Super Cool Business")
       end
+
+      expect(page).to have_content("Merchant was created successfully!")
     end
+  end
+
+  it "when I do not fill out the information I see an error and am redirected back to the new page" do
+    visit new_admin_merchant_path
+
+    click_on "Submit"
+
+    expect(page).to have_content("Merchant was not created successfully, please fill in a name!")
   end
 end
