@@ -1,41 +1,45 @@
 # Little Esty Shop
+[View Little Esty shop on Heroku](https://polar-atoll-29964-8c4589ba3da8.herokuapp.com/)</br>
+[GitHub Repo](https://github.com/lanebret85/little-shop-7)</br>
+[Project Board](https://github.com/users/lanebret85/projects/1)</br>
+[DTR](https://docs.google.com/document/d/1Ao_JTR4ClvqwTv-wlcmCI6yIlaCO7n6NzTYnFgRrt-8/edit)
 
-## Background and Description
+## Table of Contents
+- [Summary of Work](#summary-of-work)
+- [Contributors](#contributors)
+- [Ideas for Refactor](#ideas-for-refactor)</br>
 
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
 
-## Learning Goals
-- Practice designing a normalized database schema and defining model relationships
-- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
-- Utilize advanced active record techniques to perform complex database queries
-- [Optional] Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
+<h3 align="center">Project Description</h3>
 
-## Requirements
-- Must use Rails 7.0.x, Ruby 3.2.2
-- Must use PostgreSQL
-- All code must be tested via feature tests and model tests, respectively
-- Must use GitHub branching, team code reviews via GitHub PR comments, and either GitHub Projects or a project management tool of your group's choice (Trello, Notion, etc.)
-- Must include a thorough README to describe the project
-   - README should include a basic description of the project, a summary of the work completed, and some ideas for a potential contributor to work on/refactor next. Also include the names and GitHub links of all student contributors on your project. 
-- Must deploy completed code to the internet (using Heroku or Render)
-- Continuous Integration / Continuous Deployment is not allowed
-- Use of scaffolding is not allowed
-- Any gems added to the project must be approved by an instructor
-  - Pre-approved gems are `capybara, pry, faker, factory_bot_rails, orderly, simplecov, shoulda-matchers, launchy`
+<p align="center">
+  "Little Esty Shop" This project is a web application that serves as a platform for merchants to manage their items and invoices. It also provides admins with tools to monitor merchant performance and handle invoices
+</p></br>
 
-## Setup
+## Summary of Work
+This project has 6 areas that had to be built out with functionality:
+### Merchant Dashboard
+We have created a merchant dashboard where a merchant can view their top 5 customers and items that are ready to ship.
+### Merchant Items
+The Merchant Items features allow visitors to easily interact with a particular merchant's items. These features provide options such as browsing through all of the merchant's items, clicking on individual items to view more details on their dedicated show page, creating new items, enabling or disabling items as needed, and accessing information on the top 5 items for that specific merchant along with their best sale day.
+### Merchant Invoices 
+When you go to the merchant invoices page you will see a list of all the invoices for a given merchant. Clicking on the invoice will take you to a invoice show page that will display the invoice with associated information. You will also see a table that displays the items on the order and have the option to change the status of that item.
+### Admin Dashboard
+When I visit the Admin Dashboard, I see links to the Admin Merchants Index page and the Admin Invoices Index page. I also see a list of Incomplete Invoices with the dates they were created organized from earliest to most recent, where each invoice listed has at least one item attached to it that has not yet shipped. Each incomplete invoice # has a link to that invoice's Admin Show page. I also see a list of the Top 5 Customers overall by number of purchases, and I see the number of purchases they've made next to each customer.
+### Admin Merchants 
+Admin merchants implements an index page that showcases all merchants and allows a user to create a new merchant and a show page for each merchant that shows the name of the specific merchant and an update link to edit that merchant. On the index page there are two sections that show the merchants grouped by their enabled/disabled status, as well as a button to switch that status to enabled or disabled for each merchant. There is also a section that showcases the top 5 merchants based on revenue, as well as the best day of revenue for each merchant.
+### Admin Invoices 
+Admin Invoices adds an admin invoices index page that showcases all the current invoices with their IDs. Admin Invoices also implements show pages that showcase the invoice id, status, the date it was created at, the total revenue, and the customer associated's first and last name. It also lists out all of the items in that invoice, specifically the item name, quantity, price it sold for, and status. A user can also change the invoice status via a select box on the page.
 
-* Fork this repository
-* Clone your fork
-* From the command line, install gems and set up your DB:
-    * `bundle`
-    * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
-* Run your development server with `rails s` to see the app in action.
 
-## Phases
 
-1. [Database Setup](./doc/db_setup.md)
-1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
-1. [Evaluation](./doc/evaluation.md)
+## Contributors
+- [Eliza Keating](https://github.com/elizakeating)
+- [Ethan Van Gorkom](https://github.com/EVanGorkom)
+- [Lane Bretschneider](https://github.com/lanebret85)
+- [Dylan Timmons](https://github.com/DylanScotty)
+
+
+## Ideas for Refactor
+- Making consistent testing data
+

@@ -49,13 +49,24 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
             expect(page).to have_content("Customer: #{@invoice1.customer.full_name}")
         end
 
+        it "has a link to take you back to the merchants invoices page" do
+            visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+            expect(page).to have_content("Invoice #{@invoice1.id}")
+            expect(page).to have_link("#{@merchant1.name}")
+
+            click_link("#{@merchant1.name}")
+
+            expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
+        end
+
         it 'displays item name, quantity, price, and invoice item status for this merchant' do
             visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
         
             @invoice1.invoice_items.each do |invoice_item|
               expect(page).to have_content(invoice_item.item.name)
               expect(page).to have_content(invoice_item.quantity)
-              expect(page).to have_content(invoice_item.unit_price)
+              expect(page).to have_content((invoice_item.unit_price)/100.0)
               expect(page).to have_content(invoice_item.status)
             end
         end
@@ -72,11 +83,13 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
         it "has total revenue dispayed on the page" do
             visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
 
-            expect(page).to have_content(@invoice1.total_revenue)
+            expect(page).to have_content((@invoice1.total_revenue)/100.0)
         end
 
         it "shows the status of each item" do
             visit merchant_invoice_path(@merchant1, @invoice1)
+
+            expect(page).to have_content("Items on this Order:")
           
             expect(page).to have_content("Status:")
             expect(page).to have_select(:status, with_options: ["shipped", "packaged", "pending"], selected: "pending")
