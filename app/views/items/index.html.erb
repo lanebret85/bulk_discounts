@@ -5,7 +5,7 @@
 <div class="top-5-items">
   <% @merchant.top_5_items.each do |item| %>
     <p><%= link_to "#{item.name}", "/merchants/#{item.merchant_id}/items/#{item.id}" %></p>
-    <p>Total Revenue: $<%= @merchant.item_revenue(item) %></p>
+    <p>Total Revenue: $<%= Item.item_revenue(item) %></p>
     <p>Top day for <%= item.name %> was <%= Item.item_best_days(item).strftime('%-m/%d/%y') %></p><br>
   <% end %>
 </div><br>

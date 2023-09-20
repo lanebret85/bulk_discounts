@@ -183,11 +183,11 @@ RSpec.describe "Merchant Items Index" do
     
     it "Displays the total revenue generated next to each item name" do
       within("div.top-5-items") do
-        expect(page).to have_content("Total Revenue: $#{@merchant1.item_revenue(@item2)}")
-        expect(page).to have_content("Total Revenue: $#{@merchant1.item_revenue(@item1)}")
-        expect(page).to have_content("Total Revenue: $#{@merchant1.item_revenue(@item8)}")
-        expect(page).to have_content("Total Revenue: $#{@merchant1.item_revenue(@item9)}")
-        expect(page).to have_content("Total Revenue: $#{@merchant1.item_revenue(@item10)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item2)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item1)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item8)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item9)}")
+        expect(page).to have_content("Total Revenue: $#{Item.item_revenue(@item10)}")
       end
     end
   end
