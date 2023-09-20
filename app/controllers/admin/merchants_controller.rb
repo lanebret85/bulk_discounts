@@ -28,9 +28,7 @@ class Admin::MerchantsController < ApplicationController
 
   def update
     merchant = Merchant.find(params[:id])
-    merchant.update(
-      merchant_params
-    )
+    merchant.update(merchant_params)
 
     if merchant.update(merchant_params)
       if params[:status].nil?

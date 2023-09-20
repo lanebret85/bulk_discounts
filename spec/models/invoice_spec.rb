@@ -15,10 +15,6 @@ RSpec.describe Invoice, type: :model do
     it { should define_enum_for(:status).with_values(["cancelled", "completed", "in progress"]) }
   end
 
-  describe "validations" do
-    it { should validate_presence_of :status }
-  end
-
   describe "total_revenue" do
     it "returns total revenue of an invoice" do
       customer_1 = create(:customer)

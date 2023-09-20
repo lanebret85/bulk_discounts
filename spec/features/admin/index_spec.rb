@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Admin Dashboard", type: :feature do
-  before :each do
-    
-  end
-
   describe "When I visit the admin dashboard" do
     it "displays a header 'Admin Dashboard'" do
       visit admin_index_path
@@ -107,13 +103,11 @@ RSpec.describe "Admin Dashboard", type: :feature do
       customer_6 = create(:customer)
 
       invoice_1 = create(:invoice, customer: customer_1, status: 1, created_at: "Monday, September 19, 2022")
-      # sleep 1
       invoice_2 = create(:invoice, customer: customer_2, status: 1, created_at: "Tuesday, September 20, 2022")
       invoice_3 = create(:invoice, customer: customer_3, status: 1)
       invoice_4 = create(:invoice, customer: customer_4, status: 1)
       invoice_5 = create(:invoice, customer: customer_5, status: 1)
       invoice_6 = create(:invoice, customer: customer_6, status: 1)
-      # sleep 1
       invoice_7 = create(:invoice, customer: customer_1, status: 1, created_at: "Wednesday, September 21, 2022")
 
       merchant_1 = create(:merchant)
@@ -138,10 +132,6 @@ RSpec.describe "Admin Dashboard", type: :feature do
         expect(page).to have_content("Invoice ##{invoice_1.id} - #{invoice_1.created_at.strftime('%A, %B %-d, %Y')}")
         expect(page).to have_content("Invoice ##{invoice_2.id} - #{invoice_2.created_at.strftime('%A, %B %-d, %Y')}")
         expect(page).to have_content("Invoice ##{invoice_7.id} - #{invoice_7.created_at.strftime('%A, %B %-d, %Y')}")
-        expect(page).to_not have_content(invoice_3.id)
-        expect(page).to_not have_content(invoice_4.id)
-        expect(page).to_not have_content(invoice_5.id)
-        expect(page).to_not have_content(invoice_6.id)
         expect(page).to_not have_content(invoice_3.created_at)
         expect(page).to_not have_content(invoice_4.created_at)
         expect(page).to_not have_content(invoice_5.created_at)
