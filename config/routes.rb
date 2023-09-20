@@ -12,11 +12,13 @@ Rails.application.routes.draw do
     resources :invoice_items, only: [:update]
   end
 
+  get "/merchants/:merchant_id/items/new", to: "items#new"
   get "/merchants/:merchant_id/items/:item_id", to: "items#show"
   get "/merchants/:merchant_id/items/:item_id/edit", to: "items#edit"
   patch "/merchants/:merchant_id/items/:item_id", to: "items#update"
   get "/merchants/:merchant_id/invoices", to: "invoices#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "invoices#show"
+  post "/merchants/:merchant_id/items", to: "items#create"
 
   get "/admin/merchants", to: "admin/merchants#index"
   get "/admin/merchants/new", to: "admin/merchants#new"
