@@ -1,14 +1,16 @@
-<h1><%= @merchant.name %> Items</h1></br>
+<h1><%= @merchant.name %> Items</h1><br>
+
+
+<h3>Top 5 Most Popular Items:</h3>
+<div class="top-5-items">
+  <% @merchant.top_5_items.each do |item| %>
+    <p><%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %></p>
+    <p>Total Revenue: $<%= @merchant.item_revenue(item) %></p><br>
+  <% end %>
+</div><br>
 
 <div class="item-list">
 <h2>Items List:</h2>
-  <h3>Top 5 Most Popular Items:</h3>
-  <div class="top-5-items">
-    <% @merchant.top_5_items.each do |item| %>
-      <p><%= item.name %></p>
-    <% end %>
-  </div></br>
-
   <h3>Enabled Items:</h3>
   <div class="enabled-items">
     <% @merchant.items.select { |item| item.status == 'enabled' }.each do |item| %>
@@ -22,7 +24,7 @@
         </p>
       </div>
     <% end %>
-  </div></br>
+  </div><br>
 
   <h3>Disabled Items:</h3>
   <div class="disabled-items">
@@ -38,7 +40,7 @@
       </div>
     <% end %>
   </div>
-</div></br>
+</div><br>
 
 <div id="create-new-item">
   <%= link_to "Create A New Item", "/merchants/#{@merchant.id}/items/new" %>
