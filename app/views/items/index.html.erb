@@ -4,7 +4,7 @@
 <h3>Top 5 Most Popular Items:</h3>
 <div class="top-5-items">
   <% @merchant.top_5_items.each do |item| %>
-    <p><%= link_to "#{item.name}", "/merchants/#{item.merchant_id}/items/#{item.id}" %></p>
+    <p><%= link_to "#{item.name}", merchant_item_path(item.merchant_id, item.id) %></p>
     <p>Total Revenue: $<%= Item.item_revenue(item) %></p>
     <p>Top day for <%= item.name %> was <%= Item.item_best_days(item).strftime('%-m/%d/%y') %></p><br>
   <% end %>
@@ -17,8 +17,8 @@
     <% @merchant.items.select { |item| item.status == 'enabled' }.each do |item| %>
       <div id=<%=item.name%>>
         <p>
-        <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-        <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch do |form| %>
+        <%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %>
+        <%= form_with url: merchant_item_path(@merchant.id, item.id), method: :patch do |form| %>
           <%= form.hidden_field :status, value: 'disabled' %>
           <%= form.submit "Disable" %>
         <% end %>
@@ -32,8 +32,8 @@
     <% @merchant.items.select { |item| item.status == 'disabled' }.each do |item| %>
       <div id=<%=item.name%>>
         <p>
-        <%= link_to "#{item.name}", "/merchants/#{@merchant.id}/items/#{item.id}" %>
-        <%= form_with url: "/merchants/#{@merchant.id}/items/#{item.id}", method: :patch do |form| %>
+        <%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %>
+        <%= form_with url: merchant_item_path(@merchant.id, item.id), method: :patch do |form| %>
           <%= form.hidden_field :status, value: 'enabled' %>
           <%= form.submit "Enable" %>
         <% end %>
@@ -44,5 +44,5 @@
 </div><br>
 
 <div id="create-new-item">
-  <%= link_to "Create A New Item", "/merchants/#{@merchant.id}/items/new" %>
+  <%= link_to "Create A New Item", new_merchant_item_path(@merchant.id) %>
 </div>

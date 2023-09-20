@@ -50,13 +50,13 @@ RSpec.describe "Merchants dashboard", type: :feature do
         it "has a items index link" do
             expect(page).to have_link('My Items')
             click_link("My Items")
-            expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+            expect(current_path).to eq(merchant_items_path(@merchant1))
         end
 
         it "has a items invoices link" do
             expect(page).to have_link('My Invoices')
             click_link("My Invoices")
-            expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices")
+            expect(current_path).to eq(merchant_invoices_path(@merchant1))
         end
     end
 
@@ -95,7 +95,7 @@ RSpec.describe "Merchants dashboard", type: :feature do
             within("div.items-to-ship") do
                 expect(page).to have_link("#{@invoice1.id}")
                 click_link("#{@invoice1.id}")
-                expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
+                expect(current_path).to eq(merchant_invoice_path(@merchant1, @invoice1))
             end
         end
 

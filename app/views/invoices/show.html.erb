@@ -86,7 +86,7 @@
 </head>
 <body>
   <div class="header">
-    <p><%= link_to "#{@merchant.name}", "/merchants/#{@merchant.id}/invoices" %></p>
+    <p><%= link_to "#{@merchant.name}", merchant_invoices_path(@merchant.id) %></p>
   </div>
   <div class="line"></div>
   <div class="container">
@@ -113,7 +113,7 @@
             <td>Quantity: <%= invoice_item.quantity %></td>
             <td>Unit Price: <%= number_to_currency((invoice_item.unit_price)/100.0) %></td>
             <td>
-              <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
+              <%= form_with url:  merchant_invoice_item_path(@merchant, invoice_item), method: :patch, local: true do |form| %>
                 <%= form.select :status, InvoiceItem.statuses.keys, { selected: invoice_item.status } %>
                 <%= form.submit "Update Item Status" %>
               <% end %>

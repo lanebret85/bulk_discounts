@@ -5,30 +5,41 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def new
   end
 
   def create
-    Merchant.create!(merchant_params)
-    redirect_to "/admin/merchants"
+    merchant = Merchant.new(merchant_params)
+    if merchant.save
+      redirect_to admin_merchants_path
+      flash[:notice] = "Merchant was created successfully!"
+    else
+      redirect_to new_admin_merchant_path
+      flash[:alert] = "Merchant was not created successfully, please fill in a name!"
+    end
   end
 
   def edit
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
-    merchant = Merchant.find(params[:merchant_id])
-    merchant.update!(merchant_params)
+    merchant = Merchant.find(params[:id])
+    merchant.update(merchant_params)
 
-    if params[:status].nil?
-      redirect_to "/admin/merchants/#{merchant.id}"
-      flash[:notice] = "Merchant information has been successfully updated!"
+    if merchant.update(merchant_params)
+      if params[:status].nil?
+        redirect_to admin_merchant_path(merchant)
+        flash[:notice] = "Merchant information has been successfully updated!"
+      else
+        redirect_to admin_merchants_path
+      end
     else
-      redirect_to admin_merchants_path
+      redirect_to edit_admin_merchant_path(merchant)
+      flash[:alert] = "Information was not successfully updated, please fill in a name!"
     end
   end
 

@@ -1,6 +1,6 @@
 <h1>Invoice #<%= @invoice.id %></h1>
 
-<%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, data: { turbo: false } do |form| %>
+<%= form_with url: admin_invoice_path(@invoice), method: :patch, data: { turbo: false } do |form| %>
   <%= form.label :status, "Status:" %>
   <%= form.select :status, ["cancelled", "completed", "in progress"], selected: @invoice.status %>
   <%= form.submit "Update Invoice Status" %>

@@ -16,7 +16,7 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
     @invoice_item_2 = create(:invoice_item, quantity: 8, unit_price: 12463, invoice: @invoice_1, item: @item_2)
     @invoice_item_3 = create(:invoice_item, quantity: 2, unit_price: 23567, invoice: @invoice_1, item: @item_3)
 
-    visit admin_invoice_path(@invoice_1.id)
+    visit admin_invoice_path(@invoice_1)
   end
   describe "when I visit '/admin/invoices/:invoice_id'" do
     it "I the invoice ic, invoice status, invoice created_at in correct format, and customer first and last name" do

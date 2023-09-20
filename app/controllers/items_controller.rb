@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
    def show
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
+      @item = Item.find(params[:id])
    end
 
    def new
@@ -20,25 +20,25 @@ class ItemsController < ApplicationController
 
    def edit
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
+      @item = Item.find(params[:id])
    end
 
    def update
       @merchant = Merchant.find(params[:merchant_id])
-      @item = Item.find(params[:item_id])
+      @item = Item.find(params[:id])
 
       if params[:commit] == 'Enable'
          @item.update(status: 'enabled')
-         redirect_to "/merchants/#{@merchant.id}/items"
+         redirect_to merchant_items_path(@merchant.id)
       elsif params[:commit] == 'Disable'
          @item.update(status: 'disabled')
-         redirect_to "/merchants/#{@merchant.id}/items"
+         redirect_to merchant_items_path(@merchant.id)
 
       elsif @item.update(item_params)
-         redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
+         redirect_to merchant_item_path(@merchant, @item)
          flash[:success] = "Item information updated successfully."
       else
-         redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}/edit"
+         redirect_to edit_merchant_item_path(@merchant, @item)
          flash[:alert] = "Not all updates were saved, please try again."
       end
    end

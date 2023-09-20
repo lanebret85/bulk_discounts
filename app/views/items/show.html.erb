@@ -5,5 +5,5 @@
   <p><strong>Name: </strong><%= @item.name %></p>
   <p><strong>Description: </strong><%= @item.description %></p>
   <p><strong>Current Selling Price: </strong><%= @item.unit_price %></p>
-  <p><%= link_to "Update Details", "/merchants/#{@merchant.id}/items/#{@item.id}/edit" %></p>
+  <p><%= link_to "Update Details", edit_merchant_item_path(@merchant, @item) %></p>
 </div>
