@@ -6,7 +6,7 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
-  validates :status, presence: true #inclusion:{in: ["cancelled", "completed", "in progress"]}
+  validates :status, presence: true 
 
   def total_revenue
     invoice_items.sum('quantity * unit_price')
