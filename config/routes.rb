@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :show, :update]
     resources :invoice_items, only: [:update]
     resources :items
+    resources :bulk_discounts, only: [:index, :show]
   end
   
   namespace :admin do
