@@ -25,6 +25,6 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    Merchant.joins(:invoices).select("max((invoice_items.quantity) * (invoice_items.unit_price)) as total_revenue, date(invoices.created_at) as date").where("merchants.name = ?", self.name).group(:date).order(total_revenue: :desc).first.date.strftime('%-m/%d/%y')
+    Merchant.joins(:invoices).select("sum((invoice_items.quantity) * (invoice_items.unit_price)) as total_revenue, date(invoices.created_at) as date").where("merchants.name = ?", self.name).group(:date).order(total_revenue: :desc).first.date.strftime('%-m/%d/%y')
   end
 end
