@@ -7,6 +7,8 @@ class Merchant < ApplicationRecord
   has_many :invoices, through: :items
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
+  has_many :merchant_bulk_discounts
+  has_many :bulk_discounts, through: :merchant_bulk_discounts
 
   def top_5_customers
     Customer.select('customers.*, COUNT(transactions.id) as success_transactions').joins(invoices: :transactions).where(transactions: { result: "success" }).group('customers.id').order('success_transactions DESC').limit(5)
