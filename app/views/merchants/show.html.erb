@@ -17,3 +17,7 @@
     <p><%= joined_item.name %> | Invoice ID: <%= link_to "#{joined_item.invoice_id}", merchant_invoice_path(@merchant, joined_item.invoice_id) %> | Invoice Creation Date: <%= joined_item.created_at.strftime("%A, %B %-d, %Y") %></p>
   <% end %>
 </div></br>
+
+<section id="bulk_discounts">
+  <h4><%= link_to "View All Discounts", "/merchants/#{@merchant.id}/bulk_discounts" %></h4>
+</section>
