@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Merchant Bulk Discount Delete", type: :feature do
+RSpec.describe "Merchant Bulk Discount Show", type: :feature do
   before (:each) do
     @merchant1 = Merchant.create!(name: "BOB BURGER SHOP")
     @merchant2 = Merchant.create!(name: "POP BURGER SHOP")
@@ -16,31 +16,13 @@ RSpec.describe "Merchant Bulk Discount Delete", type: :feature do
   end
 
   describe "As a merchant" do
-    describe "When I visit my bulk discounts index" do
-      it "displays a button to delete each discount next to that discount" do
-        visit "/merchants/#{@merchant1.id}/bulk_discounts"
+    describe "When I visit my bulk discount show page" do
+      it "displays the bulk discounts quantity threshold and percentage discount" do
+        visit "merchants/#{@merchant1.id}/bulk_discounts/#{@bulk_discount1.id}"
 
-        within "#bulk_discounts" do
-          expect(page).to have_button("Delete this discount")
-        end
-      end
-
-      describe "When I click this button" do
-        it "redirects me back to the bulk discounts index page and I no longer see the discount listed" do
-          visit "/merchants/#{@merchant1.id}/bulk_discounts"
-
-          expect(page).to have_content("#{@bulk_discount1.description}")
-          expect(page).to have_content("#{@bulk_discount2.description}")
-
-          within "#discount_#{@bulk_discount1.id}" do
-            click_button "Delete this discount"
-          end
-
-          expect(current_path).to eq("/merchants/#{@merchant1.id}/bulk_discounts")
-
-          expect(page).to_not have_content("#{@bulk_discount1.description}")
-          expect(page).to have_content("#{@bulk_discount2.description}")
-        end
+        expect(page).to have_content("#{@bulk_discount1.description}")
+        expect(page).to have_content("Minimum Items: #{@bulk_discount1.quantity_threshold}")
+        expect(page).to have_content("Discount as a Decimal: #{@bulk_discount1.percentage_discount}")
       end
     end
   end
