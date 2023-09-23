@@ -6,11 +6,13 @@ Rails.application.routes.draw do
 
   get "/merchants/:merchant_id/dashboard", to: "merchants#show"
 
+  get "/merchants/:merchant_id/bulk_discounts/:bulk_discount_id/create", to: "merchant_bulk_discounts#create"
+
   resources :merchants do
     resources :invoices, only: [:index, :show, :update]
     resources :invoice_items, only: [:update]
     resources :items
-    resources :bulk_discounts, only: [:index, :show]
+    resources :bulk_discounts, only: [:index, :show, :new, :create]
   end
   
   namespace :admin do
