@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   describe "relationships" do
     it { should belong_to :merchant }
+    it { should have_many :invoice_items }
+    it { should have_many(:invoices).through(:invoice_items) }
+    it { should have_many(:transactions).through(:invoices) }
   end
 
   describe "validations" do
@@ -37,11 +40,11 @@ RSpec.describe Item, type: :model do
     @item9 = Item.create!(name: "Chicken Wings", unit_price: 9, merchant_id: @merchant1.id, description: "Food")
     @item10 = Item.create!(name: "Salad", unit_price: 6, merchant_id: @merchant1.id, description: "Food")
     
-    @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
+    @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id, created_at: "2012-03-25 09:54:09 UTC")
     @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id)
-    @invoice3 = Invoice.create!(status: 1, customer_id: @customer3.id)
+    @invoice3 = Invoice.create!(status: 1, customer_id: @customer3.id, created_at: "2012-03-12 05:54:09 UTC")
     @invoice4 = Invoice.create!(status: 1, customer_id: @customer4.id)
-    @invoice5 = Invoice.create!(status: 1, customer_id: @customer5.id)
+    @invoice5 = Invoice.create!(status: 1, customer_id: @customer5.id, created_at: "2012-03-12 04:54:09 UTC")
     @invoice6 = Invoice.create!(status: 1, customer_id: @customer6.id)
     @invoice7 = Invoice.create!(status: 1, customer_id: @customer6.id)
     @invoice8 = Invoice.create!(status: 1, customer_id: @customer6.id)
@@ -85,11 +88,9 @@ RSpec.describe Item, type: :model do
     end
   end
 
-  describe "item_best_days" do
+  describe "item_best_day" do
     it "returns the date in which a specific top item sold the most" do
-      best_day = Item.item_best_days(@item1)
-
-      expect(best_day).to eq(Date.today)
+      expect(@item1.item_best_day).to eq("3/12/12")
     end
   end
 end

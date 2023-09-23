@@ -1,7 +1,11 @@
 <h1>All Discounts for <%= @merchant.name %></h1>
 
 <ul>
-<% @merchant.bulk_discounts.each do |discount| %>
-  <li><%= link_to "#{discount.description}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}" %></li>
-<% end %>
+  <% @merchant.bulk_discounts.each do |discount| %>
+    <li><%= link_to "#{discount.description}", "/merchants/#{@merchant.id}/bulk_discounts/#{discount.id}" %></li>
+  <% end %>
 </ul>
+
+<section id="new_discount">
+  <p><%= link_to "Create a new discount", "/merchants/#{@merchant.id}/bulk_discounts/new" %></p>
+</section>

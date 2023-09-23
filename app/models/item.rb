@@ -4,16 +4,17 @@ class Item < ApplicationRecord
   belongs_to :merchant
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
+  has_many :transactions, through: :invoices
 
   validates :name, presence: true
   validates :description, presence: true
   validates :unit_price, presence: true
 
   def self.item_revenue(item)
-    joins(invoice_items: { invoice: :transactions }).where(transactions: { result: 'success' }).where("invoice_items.item_id = ?", item.id).sum("invoice_items.quantity * invoice_items.unit_price")
+    joins(:transactions).where(transactions: { result: 'success' }).where("invoice_items.item_id = ?", item.id).sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
-  def self.item_best_days(item)
-    select("MAX(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, DATE(invoices.created_at) AS date").joins(invoice_items: { invoice: :transactions }).where("items.id = ?", item.id).group(:date).order("total_revenue DESC").first.date
+  def item_best_day
+    Item.joins(:transactions).select("sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, DATE(invoices.created_at) AS date").where("items.id = ?", self.id).group(:date).order("total_revenue DESC").first.date.strftime('%-m/%d/%y')
   end
 end
