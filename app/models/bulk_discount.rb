@@ -1,5 +1,5 @@
 class BulkDiscount < ApplicationRecord
-  has_many :merchant_bulk_discounts
+  has_many :merchant_bulk_discounts, dependent: :destroy
   has_many :merchants, through: :merchant_bulk_discounts
 
   validates :quantity_threshold, presence: true
