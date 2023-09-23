@@ -2,3 +2,5 @@
 
 <p>Minimum Items: <%= @bulk_discount.quantity_threshold %></p>
 <p>Discount as a Decimal: <%= @bulk_discount.percentage_discount %></p>
+
+<p><%= link_to "Edit this discount", "/merchants/#{@merchant.id}/bulk_discounts/#{@bulk_discount.id}/edit" %></p>
