@@ -1,4 +1,5 @@
 
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-<p>Total Revenue: <%= number_to_currency((@invoice.total_revenue)/100.0) %></p>
-<p>Customer: <%= @invoice.customer.full_name %>
+<p>Total Revenue (without discounts): <%= number_to_currency((@invoice.total_revenue)/100.0) %></p>
+<p>Total Revenue (including discounts): <%= number_to_currency((@invoice.total_discounted_revenue)/100.0) %></p>
+<p>Customer: <%= @invoice.customer.full_name %></p>
