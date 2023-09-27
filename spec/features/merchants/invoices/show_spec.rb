@@ -13,6 +13,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
     @merchant_bulk_discount1 = MerchantBulkDiscount.create!(merchant: @merchant1, bulk_discount: @bulk_discount1)
     @merchant_bulk_discount2 = MerchantBulkDiscount.create!(merchant: @merchant1, bulk_discount: @bulk_discount2)
     @merchant_bulk_discount3 = MerchantBulkDiscount.create!(merchant: @merchant2, bulk_discount: @bulk_discount3)
+    @merchant_bulk_discount4 = MerchantBulkDiscount.create!(merchant: @merchant1, bulk_discount: @bulk_discount4)
 
     @customer1 = Customer.create(first_name: "Cindy", last_name: "Loo")
     @customer2 = Customer.create(first_name: "Steve", last_name: "Boo")
@@ -20,10 +21,12 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
     @customer4 = Customer.create(first_name: "Jon", last_name: "Stu")
     @customer5 = Customer.create(first_name: "Sarah", last_name: "Who")
     @customer6 = Customer.create(first_name: "Chandni", last_name: "Sue")
+    @customer7 = Customer.create(first_name: "Dude", last_name: "Mike")
     
     @item1 = Item.create!(name: "Burger", unit_price: 15, merchant_id: @merchant1.id, description: "Is a Burger")
     @item2 = Item.create!(name: "Soda", unit_price: 7, merchant_id: @merchant1.id, description: "Is a Soda")
     @item3 = Item.create!(name: "Pretzels", unit_price: 53457, merchant_id: @merchant2.id, description: "Is a Pretzel")
+    @item4 = Item.create!(name: "Fries", unit_price: 36, merchant_id: @merchant1.id, description: "Is Fries")
     
     @invoice1 = Invoice.create!(status: 0, customer_id: @customer1.id)
     @invoice2 = Invoice.create!(status: 1, customer_id: @customer2.id, created_at: 6.days.ago)
@@ -31,6 +34,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
     @invoice4 = Invoice.create!(status: 1, customer_id: @customer4.id)
     @invoice5 = Invoice.create!(status: 1, customer_id: @customer5.id)
     @invoice6 = Invoice.create!(status: 1, customer_id: @customer6.id)
+    @invoice7 = Invoice.create!(status: 1, customer_id: @customer7.id)
     
     @invoice_item1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 1, unit_price: 345, status: 0) 
@@ -38,6 +42,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
     @invoice_item4 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice4.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item5 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice5.id, quantity: 1, unit_price: 345, status: 1) 
     @invoice_item6 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice6.id, quantity: 1, unit_price: 345, status: 2) 
+    @invoice_item7 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice7.id, quantity: 5, unit_price: 345, status: 2) 
 
     @transaction1 = Transaction.create!(invoice_id: @invoice1.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 1)
     @transaction2 = Transaction.create!(invoice_id: @invoice2.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
@@ -45,6 +50,7 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
     @transaction4 = Transaction.create!(invoice_id: @invoice4.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
     @transaction5 = Transaction.create!(invoice_id: @invoice5.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
     @transaction6 = Transaction.create!(invoice_id: @invoice6.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    @transaction7 = Transaction.create!(invoice_id: @invoice7.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
   end
 
   describe "Invoice Show Page" do
@@ -122,6 +128,17 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
 
       expect(page).to have_content("Total Revenue (without discounts): $53.45")
       expect(page).to have_content("Total Revenue (including discounts): $43.45")
+    end
+
+    it "displays a link to the show page for the bulk discount that was applied to each invoice item next to that invoice item" do
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice7.id}"
+
+      expect(page).to have_content("Applied Discount")
+      expect(page).to have_link("Applied Discount for #{@item4.name}")
+
+      click_on "Applied Discount for #{@item4.name}"
+
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/bulk_discounts/#{@bulk_discount4.id}")
     end
   end
 end
