@@ -18,7 +18,7 @@ RSpec.describe "Merchant Bulk Discount Show", type: :feature do
   describe "As a merchant" do
     describe "When I visit my bulk discount show page" do
       it "displays the bulk discounts quantity threshold and percentage discount" do
-        visit "merchants/#{@merchant1.id}/bulk_discounts/#{@bulk_discount1.id}"
+        visit "/merchants/#{@merchant1.id}/bulk_discounts/#{@bulk_discount1.id}"
 
         expect(page).to have_content("#{@bulk_discount1.description}")
         expect(page).to have_content("Minimum Items: #{@bulk_discount1.quantity_threshold}")
