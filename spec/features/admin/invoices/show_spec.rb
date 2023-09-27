@@ -96,7 +96,9 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
     visit admin_invoice_path(@invoice_1)
 
-    expect(page).to have_content("Total Revenue (without discounts): $2,700.48")
-    expect(page).to have_content("Total Revenue (including discounts): $2,589.02")
+    within "#invoice-info" do    
+      expect(page).to have_content("Total Revenue (without discounts): $2,700.48")
+      expect(page).to have_content("Total Revenue (including discounts): $2,589.02")
+    end
   end
 end
