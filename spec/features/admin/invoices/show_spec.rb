@@ -51,4 +51,52 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       end
     end
   end
+
+  it "displays the total revenue from this invoice (not including discounts) and I see the total discounted revenue from this invoice which includes bulk discounts in the calculation" do
+    merchant_2 = Merchant.create!(name: "POP BURGER SHOP")
+
+    bulk_discount_1 = BulkDiscount.create!(quantity_threshold: 10, percentage_discount: 0.2, description: "20% off 10 items or more")
+    bulk_discount_2 = BulkDiscount.create!(quantity_threshold: 15, percentage_discount: 0.3, description: "30% off 15 items or more")
+    bulk_discount_3 = BulkDiscount.create!(quantity_threshold: 10, percentage_discount: 0.25, description: "25% off 10 items or more")
+    bulk_discount_4 = BulkDiscount.create!(quantity_threshold: 5, percentage_discount: 0.05, description: "5% off 5 items or more")
+
+    merchant_bulk_discount_1 = MerchantBulkDiscount.create!(merchant: @merchant_1, bulk_discount: bulk_discount_1)
+    merchant_bulk_discount_2 = MerchantBulkDiscount.create!(merchant: @merchant_1, bulk_discount: bulk_discount_2)
+    merchant_bulk_discount_3 = MerchantBulkDiscount.create!(merchant: merchant_2, bulk_discount: bulk_discount_3)
+    merchant_bulk_discount_4 = MerchantBulkDiscount.create!(merchant: @merchant_1, bulk_discount: bulk_discount_4)
+
+    customer_2 = Customer.create(first_name: "Steve", last_name: "Boo")
+    customer_3 = Customer.create(first_name: "Joshil", last_name: "Moo")
+    customer_4 = Customer.create(first_name: "Jon", last_name: "Stu")
+    customer_5 = Customer.create(first_name: "Sarah", last_name: "Who")
+    customer_6 = Customer.create(first_name: "Chandni", last_name: "Sue")
+    customer_7 = Customer.create(first_name: "Dude", last_name: "Mike")
+
+    item_4 = Item.create!(name: "Fries", unit_price: 36, merchant_id: @merchant_1.id, description: "Is Fries")
+
+    invoice_2 = Invoice.create!(status: 1, customer_id: customer_2.id, created_at: 6.days.ago)
+    invoice_3 = Invoice.create!(status: 1, customer_id: customer_3.id)
+    invoice_4 = Invoice.create!(status: 1, customer_id: customer_4.id)
+    invoice_5 = Invoice.create!(status: 1, customer_id: customer_5.id)
+    invoice_6 = Invoice.create!(status: 1, customer_id: customer_6.id)
+    invoice_7 = Invoice.create!(status: 1, customer_id: customer_7.id)
+
+    invoice_item_4 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: invoice_4.id, quantity: 1, unit_price: 345, status: 1) 
+    invoice_item_5 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: invoice_5.id, quantity: 1, unit_price: 345, status: 1) 
+    invoice_item_6 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: invoice_6.id, quantity: 1, unit_price: 345, status: 2)
+    invoice_item_7 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: invoice_7.id, quantity: 10, unit_price: 500, status: 1)
+
+    transaction_1 = Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 1)
+    transaction_2 = Transaction.create!(invoice_id: invoice_2.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    transaction_3 = Transaction.create!(invoice_id: invoice_3.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    transaction_4 = Transaction.create!(invoice_id: invoice_4.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    transaction_5 = Transaction.create!(invoice_id: invoice_5.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    transaction_6 = Transaction.create!(invoice_id: invoice_6.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+    transaction_7 = Transaction.create!(invoice_id: invoice_7.id, credit_card_number: "1234567812345678", credit_card_expiration_date: "10/26", result: 0)
+
+    visit admin_invoice_path(@invoice_1)
+
+    expect(page).to have_content("Total Revenue (without discounts): $2,700.48")
+    expect(page).to have_content("Total Revenue (including discounts): $2,589.02")
+  end
 end
