@@ -126,15 +126,19 @@ RSpec.describe "Merchants Invoice Show Page", type: :feature do
 
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
 
-      expect(page).to have_content("Total Revenue (without discounts): $53.45")
-      expect(page).to have_content("Total Revenue (including discounts): $43.45")
+      within ".invoice-info" do   
+        expect(page).to have_content("Total Revenue (without discounts): $53.45")
+        expect(page).to have_content("Total Revenue (including discounts): $43.45")
+      end
     end
 
     it "displays a link to the show page for the bulk discount that was applied to each invoice item next to that invoice item" do
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice7.id}"
 
-      expect(page).to have_content("Applied Discount")
-      expect(page).to have_link("Applied Discount for #{@item4.name}")
+      within(".show-table") do
+        expect(page).to have_content("Applied Discount")
+        expect(page).to have_link("Applied Discount for #{@item4.name}")
+      end
 
       click_on "Applied Discount for #{@item4.name}"
 

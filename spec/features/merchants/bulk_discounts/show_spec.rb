@@ -20,9 +20,11 @@ RSpec.describe "Merchant Bulk Discount Show", type: :feature do
       it "displays the bulk discounts quantity threshold and percentage discount" do
         visit "/merchants/#{@merchant1.id}/bulk_discounts/#{@bulk_discount1.id}"
 
-        expect(page).to have_content("#{@bulk_discount1.description}")
-        expect(page).to have_content("Minimum Items: #{@bulk_discount1.quantity_threshold}")
-        expect(page).to have_content("Discount as a Decimal: #{@bulk_discount1.percentage_discount}")
+        within("#discount-info") do 
+          expect(page).to have_content("#{@bulk_discount1.description}")
+          expect(page).to have_content("Minimum Items: #{@bulk_discount1.quantity_threshold}")
+          expect(page).to have_content("Discount as a Decimal: #{@bulk_discount1.percentage_discount}")
+        end
       end
     end
   end
