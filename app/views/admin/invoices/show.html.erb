@@ -5,7 +5,9 @@
   <%= form.select :status, ["cancelled", "completed", "in progress"], selected: @invoice.status %>
   <%= form.submit "Update Invoice Status" %>
 <% end %>
-<%= render partial: "shared/invoice_information" %>
+<section id="invoice-info">
+  <%= render partial: "shared/invoice_information" %>
+</section>
 
 <h2>Items on this Invoice:</h2>
 <% @invoice.invoice_items.each do |invoice_item| %>
