@@ -1,8 +1,6 @@
-# Little Esty Shop
-[View Little Esty shop on Heroku](https://polar-atoll-29964-8c4589ba3da8.herokuapp.com/)</br>
-[GitHub Repo](https://github.com/lanebret85/little-shop-7)</br>
-[Project Board](https://github.com/users/lanebret85/projects/1)</br>
-[DTR](https://docs.google.com/document/d/1Ao_JTR4ClvqwTv-wlcmCI6yIlaCO7n6NzTYnFgRrt-8/edit)
+# Little Esty Shop - Bulk Discounts Extension
+[View Little Esty shop on Heroku](https://vast-fjord-93772-a13308b69598.herokuapp.com/merchants/1/dashboard)</br>
+[GitHub Repo](https://github.com/lanebret85/bulk_discounts)</br>
 
 ## Table of Contents
 - [Summary of Work](#summary-of-work)
@@ -13,17 +11,19 @@
 <h3 align="center">Project Description</h3>
 
 <p align="center">
-  "Little Esty Shop" This project is a web application that serves as a platform for merchants to manage their items and invoices. It also provides admins with tools to monitor merchant performance and handle invoices
+  "Little Esty Shop" This project is a web application that serves as a platform for merchants to manage their items and invoices. It also provides admins with tools to monitor merchant performance and handle invoices.
 </p></br>
 
 ## Summary of Work
-This project has 6 areas that had to be built out with functionality:
+This project has 7 areas that had to be built out with functionality:
 ### Merchant Dashboard
 We have created a merchant dashboard where a merchant can view their top 5 customers and items that are ready to ship.
 ### Merchant Items
 The Merchant Items features allow visitors to easily interact with a particular merchant's items. These features provide options such as browsing through all of the merchant's items, clicking on individual items to view more details on their dedicated show page, creating new items, enabling or disabling items as needed, and accessing information on the top 5 items for that specific merchant along with their best sale day.
 ### Merchant Invoices 
 When you go to the merchant invoices page you will see a list of all the invoices for a given merchant. Clicking on the invoice will take you to a invoice show page that will display the invoice with associated information. You will also see a table that displays the items on the order and have the option to change the status of that item.
+### Merchant Bulk Discounts
+This section allows a merchant to create, edit, and delete bulk discounts that they can offer their customers when they purchase a certain quantity or more of a singular item. The merchant is also able to see how much revenue they've generated both with and without discounts factored in. When the merchant visits the show page for a particular invoice, they are also able to see which discount was applied to each item, if any, and it links to the show page for the discount applied.
 ### Admin Dashboard
 When I visit the Admin Dashboard, I see links to the Admin Merchants Index page and the Admin Invoices Index page. I also see a list of Incomplete Invoices with the dates they were created organized from earliest to most recent, where each invoice listed has at least one item attached to it that has not yet shipped. Each incomplete invoice # has a link to that invoice's Admin Show page. I also see a list of the Top 5 Customers overall by number of purchases, and I see the number of purchases they've made next to each customer.
 ### Admin Merchants 
