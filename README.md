@@ -1,5 +1,5 @@
 # Little Esty Shop - Bulk Discounts Extension
-[View Bulk Discounts on Heroku](https://vast-fjord-93772-a13308b69598.herokuapp.com/merchants/1/dashboard)</br>
+[View Bulk Discounts on Heroku](https://vast-fjord-93772-a13308b69598.herokuapp.com/merchants/2/dashboard)</br>
 [GitHub Repo](https://github.com/lanebret85/bulk_discounts)</br>
 
 ## Table of Contents
